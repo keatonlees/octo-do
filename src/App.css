@@ -1,0 +1,380 @@
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap");
+
+:root {
+  --primary-colour: #be29ec;
+  --secondary-colour: #d896ff;
+  --text-colour: #50289b;
+  --light-accent-colour: lightgray;
+
+  --login-border-radius: 15px;
+}
+
+html,
+body {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-colour);
+  /* font-family: "Signika Negative", sans-serif; */
+  font-family: 'Kanit', sans-serif;
+}
+
+button {
+  font-family: 'Kanit', sans-serif;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50vw;
+  height: 70vh;
+  border-radius: var(--login-border-radius);
+  background-color: white;
+  color: var(--text-colour);
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.login-left,
+.login-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+}
+
+.login-left {
+  background-color: var(--secondary-colour);
+  border-radius: var(--login-border-radius) 0 0 var(--login-border-radius);
+}
+
+.login-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.login-info label {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.login-info input {
+  width: 100%;
+  height: 28px;
+  font-size: 20px;
+  text-decoration: none;
+  border: none;
+  border-bottom: 3px solid var(--secondary-colour);
+  color: var(--primary-colour);
+  transition: 0.2s all;
+}
+
+.login-info input::placeholder {
+  color: var(--secondary-colour);
+}
+
+.login-info input:focus {
+  outline: none !important;
+  border-bottom: 3px solid var(--primary-colour);
+}
+
+.login-error {
+  color: red;
+  text-align: left;
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.login-btn {
+  width: 40%;
+  height: 45px;
+  font-size: 20px;
+  border: none;
+  border-radius: 100px;
+  color: white;
+  background-color: var(--primary-colour);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  transition: 0.2s all;
+}
+
+.login-btn:hover {
+  border: 3px solid var(--text-colour);
+}
+
+.login-text h1, .login-text button {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--secondary-colour);
+}
+
+.login-text h1 {
+  margin-bottom: -5px;
+}
+
+.login-text button {
+  border: none;
+  background-color: transparent;
+}
+
+@media (max-width: 1400px) {
+  .loginContainer {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .loginContainer {
+    width: 90vw;
+  }
+}
+
+/* .App {
+  text-align: center;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+.App-header {
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  border-bottom: 3px solid darkgrey;
+}
+
+.App-body {
+  width: 100%;
+}
+.left-col {
+  margin-right: 20px !important;
+}
+.right-col {
+  margin-left: 20px !important;
+}
+.col {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+} */
+
+/* ---------- NEW ITEM INPUTS AND ALL TASKS DISPLAY  ---------- */
+
+/* .input-content,
+.item-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+  border-radius: 5px;
+} */
+/* .input-content {
+  background-color: skyblue;
+  border: 1px solid lightgray;
+  margin-bottom: 10px;
+} */
+/* .item-content {
+  background-color: whitesmoke;
+  border: 1px solid lightgray;
+  margin-bottom: 2px;
+}
+
+.input-content input {
+  height: 100%;
+}
+
+.input-name,
+.input-date,
+.input-time,
+.item-name,
+.item-date,
+.item-time {
+  font-size: 16px;
+}
+.input-name,
+.input-date,
+.input-time {
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.item-name,
+.item-date,
+.item-time {
+  border-right: 2px solid lightgray;
+}
+
+input:focus {
+  outline: none;
+}
+
+.input-handle,
+.item-handle {
+  width: 30px !important;
+  color: darkslategray;
+}
+.input-name,
+.item-name {
+  width: 38% !important;
+}
+.input-date,
+.item-date {
+  width: 17% !important;
+}
+.input-time,
+.item-time {
+  width: 13% !important;
+}
+
+.input-tags {
+  width: 23% !important;
+}
+
+.input-add-btn,
+.item-delete-btn {
+  position: absolute;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 18px;
+  color: white;
+  transition: 0.3s;
+}
+.input-add-btn {
+  background-color: green;
+}
+.item-delete-btn {
+  background-color: red;
+}
+
+.input-add-btn:hover,
+.item-delete-btn:hover {
+  cursor: pointer;
+}
+.input-add-btn:hover {
+  background-color: darkgreen;
+}
+.item-delete-btn:hover {
+  background-color: firebrick;
+}
+
+.item-tags {
+  display: flex;
+  margin-left: 3px;
+}
+
+.item-tags-tag {
+  margin-right: 3px;
+  padding: 1px 4px;
+  border-radius: 3px;
+} */
+
+/* ---------- DAILY TASKS  ---------- */
+
+/* .clear-all-daily-btn {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: red;
+  transition: 0.3s;
+}
+.clear-all-daily-btn:hover {
+  cursor: pointer;
+  background-color: firebrick;
+}
+
+.daily-timeSlot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.daily-time-display {
+  width: 70px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: skyblue;
+  border-radius: 5px;
+  margin-right: 3px;
+}
+
+.daily-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 30px;
+  background-color: whitesmoke;
+  margin-bottom: 3px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.daily-name {
+  margin-left: 5px;
+  font-size: 16px;
+}
+
+.daily-task-list {
+  width: 100%;
+}
+
+.daily-clear-btn {
+  position: absolute;
+  right: 0;
+  width: 60px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 16px;
+  color: red;
+  transition: 0.3s;
+  margin-right: 10px;
+}
+.daily-clear-btn:hover {
+  cursor: pointer;
+  background-color: firebrick;
+  color: white;
+}
+
+.empty-dropzone {
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3px;
+  border: 1px dashed black;
+  border-radius: 5px;
+  color: gray;
+  background-color: whitesmoke;
+} */
