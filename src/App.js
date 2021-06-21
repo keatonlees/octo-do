@@ -1,34 +1,37 @@
 // base imports
-import Axios from "axios";
 import React from "react";
+import Axios from "axios";
 
-// // routing imports
-// import { BrowserRouter as Router, Route } from "react-router-dom";
-// import PrivateRoute from "./pages/PrivateRoute.js";
+// routing imports
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./pages/PrivateRoute.js";
 
-// // firebase imports
-// import { AuthProvider } from "./firebase/Auth.js";
+// firebase import
+import { AuthProvider } from "./firebase/Auth.js";
 
-// // pages
-// import HomePage from "./pages/HomePage.js";
-// import LoginPage from "./pages/LoginPage.js";
+// pages
+import HomePage from "./pages/HomePage.js";
+import LoginPage from "./pages/LoginPage.js";
+import SignupPage from "./pages/SignupPage.js";
 
 // styles
 import "./App.css";
 
-import { BASE_API_URL } from "./utils/constants";
-
-const loadInfo = async () => {
-  const { status, data } = await Axios.get(`${BASE_API_URL}/getInfo`);
-  console.log(status, data);
-};
+// for axios endpoint
+import { BASE_API_URL } from "./utils/Constants";
+const endpoint = BASE_API_URL;
 
 function App() {
   return (
-    <div>
-      <h1>Test</h1>
-      <button onClick={loadInfo}>Click me!</button>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <PrivateRoute exact path="/" component={HomePage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/signup" component={SignupPage} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 
