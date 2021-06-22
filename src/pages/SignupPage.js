@@ -10,7 +10,7 @@ import { withRouter } from "react-router";
 import fire from "../firebase/Fire.js";
 
 // for axios endpoint
-import { BASE_API_URL } from "./src/utils/Constants.js";
+import { BASE_API_URL } from '../utils/constants';
 
 // images
 import octopusWave from "../images/octopus_waving_reversed.png";
