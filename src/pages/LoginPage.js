@@ -4,7 +4,7 @@ import { useCallback, useContext, useState } from "react";
 import Axios from "axios";
 
 // routing imports
-import { withRouter, Redirect, Link } from "react-router";
+import { withRouter, Redirect } from "react-router";
 
 // firebase imports
 import fire from "../firebase/Fire.js";

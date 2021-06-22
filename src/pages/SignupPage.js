@@ -4,14 +4,13 @@ import { useCallback, useContext, useState } from "react";
 import Axios from "axios";
 
 // routing imports
-import { withRouter, Redirect } from "react-router";
+import { withRouter } from "react-router";
 
 // firebase imports
 import fire from "../firebase/Fire.js";
-import { AuthContext } from "../firebase/Auth.js";
 
 // for axios endpoint
-import { BASE_API_URL } from "../utils/Constants.js";
+import { BASE_API_URL } from "./src/utils/Constants.js";
 
 // images
 import octopusWave from "../images/octopus_waving_reversed.png";
