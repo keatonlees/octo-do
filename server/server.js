@@ -35,6 +35,10 @@ app.get("/getInfo", async (req, res) => {
 //   }
 // });
 
+// catch all for on refresh
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+});
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`);
 });
