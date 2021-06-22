@@ -1,7 +1,6 @@
 // base imports
 import React from "react";
 import { useCallback, useContext, useState } from "react";
-import Axios from "axios";
 
 // routing imports
 import { withRouter, Redirect } from "react-router";
@@ -60,7 +59,7 @@ const LoginPage = ({ history }) => {
   return (
     <div className="login-container">
       <div className="login-left">
-        <img src={octopusSmile} className="login-img" />
+        <img src={octopusSmile} className="login-img" alt="octopus-smiling"/>
         <h1>Octo-Do</h1>
       </div>
 

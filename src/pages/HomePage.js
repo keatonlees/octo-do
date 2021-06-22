@@ -14,11 +14,6 @@ function HomePage() {
 
   // get user info to pass to database
   const { currentUser } = useContext(AuthContext);
-  // console.log(currentUser);
-
-  // for axios endpoint
-  // import { BASE_API_URL } from "./utils/Constants.js";
-  // const endpoint = BASE_API_URL;
 
   return (
     <>

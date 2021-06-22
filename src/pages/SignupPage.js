@@ -1,6 +1,6 @@
 // base imports
 import React from "react";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import Axios from "axios";
 
 // routing imports
@@ -10,7 +10,7 @@ import { withRouter } from "react-router";
 import fire from "../firebase/Fire.js";
 
 // for axios endpoint
-import { BASE_API_URL } from '../utils/constants';
+import { BASE_API_URL } from "../utils/constants.js";
 
 // images
 import octopusWave from "../images/octopus_waving_reversed.png";
@@ -18,7 +18,6 @@ import octopusWave from "../images/octopus_waving_reversed.png";
 const SignupPage = ({ history }) => {
   // node/express server endpoint
   const endpoint = BASE_API_URL;
-  console.log("Endpoint: " + endpoint);
 
   // global state variables
   const [firstName, setFirstName] = useState("");
@@ -71,10 +70,15 @@ const SignupPage = ({ history }) => {
 
   const toLoginPage = () => history.push("/login");
 
+  const addUserToDB = async () => {
+    const { status, data } = await Axios.get(endpoint + "/test");
+    if (status === 200) console.log(status, data);
+  };
+
   return (
     <div className="signup-container">
       <div className="signup-left">
-        <img src={octopusWave} className="signup-img" />
+        <img src={octopusWave} className="signup-img" alt="octopus-waving" />
         <h1>Octo-Do</h1>
       </div>
 
@@ -120,6 +124,7 @@ const SignupPage = ({ history }) => {
             Sign Up
           </button>
         </form>
+        <button onClick={addUserToDB}>Get info</button>
 
         <div className="signup-text">
           <h1>Already have an account?</h1>

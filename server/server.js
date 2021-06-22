@@ -8,11 +8,11 @@ const PORT = process.env.PORT || 5000;
 const buildPath = path.join(__dirname, "..", "build");
 app.use(express.static(buildPath));
 
-app.get("/getInfo", async (req, res) => {
+app.get("/test", async (req, res) => {
   try {
     res.send("It's working!");
   } catch (error) {
-    res.status(400).send("Error while getting info");
+    res.status(400).send("Error while getting test");
   }
 });
 
