@@ -17,8 +17,8 @@ import SignupPage from "./pages/SignupPage.js";
 import "./App.css";
 
 // for axios endpoint
-import { BASE_API_URL } from "./utils/Constants.js";
-const endpoint = BASE_API_URL;
+// import { BASE_API_URL } from "./utils/Constants.js";
+// const endpoint = BASE_API_URL;
 
 function App() {
   return (
