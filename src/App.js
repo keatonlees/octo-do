@@ -16,20 +16,15 @@ import SignupPage from "./pages/SignupPage.js";
 // styles
 import "./App.css";
 
-// for axios endpoint
-// import { BASE_API_URL } from "./utils/Constants.js";
-// const endpoint = BASE_API_URL;
-
 function App() {
   return (
-    // <AuthProvider>
-    //   <Router>
-    //     <PrivateRoute exact path="/" component={HomePage} />
-    //     <Route exact path="/login" component={LoginPage} />
-    //     <Route exact path="/signup" component={SignupPage} />
-    //   </Router>
-    // </AuthProvider>
-    <h1>Testing again</h1>
+    <AuthProvider>
+      <Router>
+        <PrivateRoute exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/signup" component={SignupPage} />
+      </Router>
+    </AuthProvider>
   );
 }
 
