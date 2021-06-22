@@ -1,9 +1,8 @@
 // base imports
 import React from "react";
-import Axios from "axios";
 
 // routing imports
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import PrivateRoute from "./pages/PrivateRoute.js";
 
 // firebase import
@@ -18,18 +17,16 @@ import SignupPage from "./pages/SignupPage.js";
 import "./App.css";
 
 // for axios endpoint
-import { BASE_API_URL } from "./utils/Constants";
+import { BASE_API_URL } from "./utils/Constants.js";
 const endpoint = BASE_API_URL;
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <Switch>
-          <PrivateRoute exact path="/" component={HomePage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/signup" component={SignupPage} />
-        </Switch>
+        <PrivateRoute exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/signup" component={SignupPage} />
       </Router>
     </AuthProvider>
   );
