@@ -10,10 +10,18 @@ import { withRouter, Redirect } from "react-router";
 import fire from "../firebase/Fire.js";
 import { AuthContext } from "../firebase/Auth.js";
 
+// for axios endpoint
+import { BASE_API_URL } from "../utils/Constants.js";
+
 // images
 import octopusWave from "../images/octopus_waving_reversed.png";
 
 const SignupPage = ({ history }) => {
+  // node/express server endpoint
+  const endpoint = BASE_API_URL;
+  console.log("Endpoint: " + endpoint);
+
+  // global state variables
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
