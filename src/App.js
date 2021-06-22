@@ -22,13 +22,14 @@ const endpoint = BASE_API_URL;
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <PrivateRoute exact path="/" component={HomePage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/signup" component={SignupPage} />
-      </Router>
-    </AuthProvider>
+    // <AuthProvider>
+    //   <Router>
+    //     <PrivateRoute exact path="/" component={HomePage} />
+    //     <Route exact path="/login" component={LoginPage} />
+    //     <Route exact path="/signup" component={SignupPage} />
+    //   </Router>
+    // </AuthProvider>
+    <h1>Testing again</h1>
   );
 }
 
