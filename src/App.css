@@ -8,13 +8,19 @@
   --light-accent-colour: lightgray;
 
   --login-border-radius: 15px;
+  --home-border-radius: 15px;
+  --home-box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  --topbar-side-margin: 25px;
 }
 
 html,
 body {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   align-items: center;
   justify-content: center;
@@ -30,8 +36,11 @@ button:hover {
   cursor: pointer;
 }
 
+/* ==================== LOGIN / SIGN UP PAGES ==================== */
+
 .login-container,
 .signup-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,6 +51,8 @@ button:hover {
   background-color: white;
   color: var(--text-colour);
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  z-index: 10;
+  overflow: hidden;
 }
 
 .login-left,
@@ -159,6 +170,219 @@ button:hover {
   background-color: transparent;
 }
 
+/* ==================== HOME PAGE ==================== */
+
+.home-container {
+  position: relative;
+  width: 97.5vw;
+  height: 97.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
+  justify-content: center;
+  z-index: 10;
+}
+.home-top {
+  width: 100%;
+  height: 9%;
+  margin-bottom: 1%;
+  background-color: white;
+  border-radius: var(--home-border-radius);
+  box-shadow: var(--home-box-shadow);
+}
+.home-bottom {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+.home-left,
+.home-right {
+  width: 49.5%;
+  height: 100%;
+  background-color: white;
+  border-radius: var(--home-border-radius);
+  box-shadow: var(--home-box-shadow);
+}
+
+/* ==================== TOPBAR ==================== */
+.topbar-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-colour);
+  overflow: hidden;
+}
+.topbar-left,
+.topbar-right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.topbar-left {
+  justify-content: flex-start;
+  margin-left: var(--topbar-side-margin);
+}
+.topbar-right {
+  justify-content: flex-end;
+  margin-right: var(--topbar-side-margin);
+}
+.topbar-btn {
+  width: 150px;
+  height: 45px;
+  font-size: 20px;
+  border: none;
+  border-radius: 100px;
+  color: white;
+  background-color: var(--primary-colour);
+  margin-left: 10px;
+  transition: 0.2s all;
+}
+.topbar-btn:hover {
+  border: 3px solid var(--text-colour);
+}
+
+/* ==================== ALL/DAILY TASKS ==================== */
+.all-tasks-container,
+.daily-tasks-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-colour);
+  overflow: hidden;
+  /* border: 1px solid red; */
+}
+.all-tasks-content,
+.daily-tasks-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: flex-start;
+  width: 95%;
+  height: 95%;
+  /* border: 1px solid orange; */
+}
+.all-tasks-content h1,
+.daily-tasks-content h1 {
+  margin: 0;
+}
+
+.all-tasks-topbar {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.all-tasks-topbar button {
+  width: 80px;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 100px;
+  color: white;
+  background-color: var(--primary-colour);
+  border: none;
+  transition: 0.2s;
+}
+.all-tasks-topbar button:hover {
+  border: 3px solid var(--text-colour);
+}
+
+/* ==================== NEW TASK ==================== */
+
+/* ==================== ACCOUNT PAGE ==================== */
+.account-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+  height: 70vh;
+  border-radius: var(--login-border-radius);
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  z-index: 10;
+}
+.account-container h1 {
+  color: var(--text-colour);
+  margin-bottom: 10px;
+}
+.account-back-btn {
+  width: 40%;
+  height: 45px;
+  font-size: 20px;
+  border: none;
+  border-radius: 100px;
+  color: white;
+  background-color: var(--primary-colour);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  transition: 0.2s all;
+}
+.account-back-btn:hover {
+  border: 3px solid var(--text-colour);
+}
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  height: 60%;
+}
+.account-info h1 {
+  color: var(--text-colour);
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.account-update {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 25px;
+}
+.account-update input {
+  width: 40%;
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--primary-colour);
+  border: none;
+  border-bottom: solid 3px var(--secondary-colour);
+  transition: 0.3s all;
+}
+.account-update input::placeholder {
+  color: var(--secondary-colour);
+}
+.account-update input:focus {
+  outline: none !important;
+  border-bottom: 3px solid var(--primary-colour);
+}
+.account-update p {
+  color: var(--primary-colour);
+  font-size: 20px;
+}
+.account-update button {
+  height: 25px;
+}
+.account-update input,
+.account-update p {
+  margin-right: 10px;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
 @media (max-width: 1400px) {
   .login-container,
   .signup-container {
@@ -171,6 +395,88 @@ button:hover {
   .signup-container {
     width: 90vw;
   }
+}
+
+/* ==================== BACKGROUND FLAIRS ==================== */
+.flair {
+  position: absolute;
+  width: 100px;
+  opacity: 0.5;
+}
+.flair-img-1 {
+  top: 7%;
+  left: 5%;
+  transform: rotate(-15deg);
+}
+.flair-img-2 {
+  top: 3%;
+  left: 25%;
+  transform: rotate(10deg);
+}
+.flair-img-3 {
+  top: 9%;
+  left: 45%;
+  transform: rotate(-20deg);
+}
+.flair-img-4 {
+  top: 5%;
+  right: 25%;
+  transform: rotate(-5deg);
+}
+.flair-img-5 {
+  top: 15%;
+  right: 5%;
+  transform: rotate(30deg);
+}
+.flair-img-6 {
+  top: 30%;
+  left: 15%;
+  transform: rotate(-5deg);
+}
+.flair-img-7 {
+  top: 35%;
+  right: 20%;
+  transform: rotate(5deg);
+}
+.flair-img-8 {
+  top: 50%;
+  left: 1%;
+  transform: rotate(5deg);
+}
+.flair-img-9 {
+  bottom: 25%;
+  left: 20%;
+  transform: rotate(-20deg);
+}
+.flair-img-10 {
+  bottom: 33%;
+  right: 10%;
+  transform: rotate(-15deg);
+}
+.flair-img-11 {
+  bottom: 10%;
+  left: 7%;
+  transform: rotate(25deg);
+}
+.flair-img-12 {
+  bottom: 1%;
+  left: 35%;
+  transform: rotate(-5deg);
+}
+.flair-img-13 {
+  bottom: 4%;
+  right: 30%;
+  transform: rotate(-10deg);
+}
+.flair-img-14 {
+  bottom: 8%;
+  right: 3%;
+  transform: rotate(10deg);
+}
+.flair-img-15 {
+  top: 45%;
+  left: 47%;
+  transform: rotate(5deg);
 }
 
 /* .App {

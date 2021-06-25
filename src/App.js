@@ -3,7 +3,7 @@ import React from "react";
 
 // routing imports
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import PrivateRoute from "./pages/PrivateRoute.js";
+import PrivateRoute from "./components/PrivateRoute.js";
 
 // firebase import
 import { AuthProvider } from "./firebase/Auth.js";
@@ -12,6 +12,7 @@ import { AuthProvider } from "./firebase/Auth.js";
 import HomePage from "./pages/HomePage.js";
 import LoginPage from "./pages/LoginPage.js";
 import SignupPage from "./pages/SignupPage.js";
+import AccountPage from "./pages/AccountPage.js";
 
 // styles
 import "./App.css";
@@ -23,6 +24,7 @@ function App() {
         <PrivateRoute exact path="/" component={HomePage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
+        <Route exact path="/account" component={AccountPage} />
       </Router>
     </AuthProvider>
   );
