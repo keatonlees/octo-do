@@ -63,7 +63,7 @@ const LoginPage = ({ history }) => {
     <div className="login-page">
       <div className="login-container">
         <div className="login-left">
-          <img src={octopusSmile} className="login-img" alt="octopus-smiling" />
+          <img src={octopusSmileRev} className="login-img" alt="octopus-smiling" />
           <h1>Octo-Do</h1>
         </div>
 
