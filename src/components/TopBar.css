@@ -1,0 +1,35 @@
+/* ==================== TOPBAR ==================== */
+
+.topbar-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-colour);
+  overflow: hidden;
+}
+
+.topbar-left,
+.topbar-right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-left {
+  justify-content: flex-start;
+  margin-left: var(--topbar-side-margin);
+}
+
+.topbar-right {
+  justify-content: flex-end;
+  margin-right: var(--topbar-side-margin);
+}
+
+.topbar-btn {
+  width: 150px;
+  font-size: 20px;
+  margin-left: 10px;
+}

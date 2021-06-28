@@ -12,6 +12,9 @@ import fire from "../firebase/Fire.js";
 // for axios endpoint
 import { BASE_API_URL } from "../utils/constants.js";
 
+// css
+import "./LoginSignupPages.css";
+
 // images
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
@@ -90,21 +93,20 @@ const SignupPage = ({ history }) => {
   const toLoginPage = () => history.push("/login");
 
   return (
-    <div className="signup-page">
-      <div className="signup-container">
-        <div className="signup-left">
+    <div className="log-sign-page">
+      <div className="log-sign-container">
+        <div className="log-sign-left">
           <img
             src={octopusWaveRev}
-            className="signup-img"
+            className="log-sign-img"
             alt="octopus-waving"
           />
-          <h1>Octo-Do</h1>
+          <h1 className="log-sign-title">Octo-Do</h1>
         </div>
-
-        <div className="signup-right">
-          <h1>Sign Up</h1>
-          <form className="signup-form" onSubmit={handleSignUp}>
-            <div className="signup-inputs">
+        <div className="log-sign-right">
+          <h1 className="log-sign-title">Sign up</h1>
+          <form className="log-sign-form" onSubmit={handleSignUp}>
+            <div className="log-sign-inputs">
               <label>First name</label>
               <input
                 name="firstName"
@@ -114,8 +116,7 @@ const SignupPage = ({ history }) => {
                   setFirstName(event.target.value);
                 }}
               />
-              <p className="signup-error">{firstNameError}</p>
-
+              <p className="log-sign-error"> {firstNameError} </p>
               <label>Email</label>
               <input
                 name="email"
@@ -125,8 +126,7 @@ const SignupPage = ({ history }) => {
                   setEmail(event.target.value);
                 }}
               />
-              <p className="signup-error">{emailError}</p>
-
+              <p className="log-sign-error"> {emailError} </p>
               <label>Password</label>
               <input
                 name="password"
@@ -136,8 +136,7 @@ const SignupPage = ({ history }) => {
                   setPassword(event.target.value);
                 }}
               />
-              <p className="signup-error">{passwordError}</p>
-
+              <p className="log-sign-error"> {passwordError} </p>
               <label>Password Confirmation</label>
               <input
                 name="password"
@@ -147,15 +146,13 @@ const SignupPage = ({ history }) => {
                   setPasswordConfirmation(event.target.value);
                 }}
               />
-              <p className="signup-error">{passwordConfirmationError}</p>
+              <p className="log-sign-error"> {passwordConfirmationError} </p>
             </div>
-
-            <button type="submit" className="signup-btn">
-              Sign Up
+            <button type="submit" className="primary-btn log-sign-btn">
+              Sign up
             </button>
           </form>
-
-          <div className="signup-text">
+          <div className="log-sign-text">
             <h1>Already have an account?</h1>
             <button onClick={toLoginPage}>
               <u>Login</u>

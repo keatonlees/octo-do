@@ -1,0 +1,84 @@
+/* ==================== ACCOUNT PAGE ==================== */
+
+.account-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+  height: 70vh;
+  border-radius: var(--login-border-radius);
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  z-index: 10;
+}
+
+.account-container h1 {
+  color: var(--text-colour);
+  margin-bottom: 10px;
+}
+
+.account-back-btn {
+  width: 40%;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  height: 60%;
+}
+
+.account-info h1 {
+  color: var(--text-colour);
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.account-update {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 25px;
+}
+
+.account-update input {
+  width: 40%;
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--primary-colour);
+  border: none;
+  border-bottom: solid 3px var(--secondary-colour);
+  transition: 0.3s all;
+}
+
+.account-update input::placeholder {
+  color: var(--secondary-colour);
+}
+
+.account-update input:focus {
+  outline: none !important;
+  border-bottom: 3px solid var(--primary-colour);
+}
+
+.account-update p {
+  color: var(--primary-colour);
+  font-size: 20px;
+}
+
+.account-update button {
+  height: 25px;
+}
+
+.account-update input,
+.account-update p {
+  margin-right: 10px;
+}

@@ -11,6 +11,10 @@ import { AuthContext } from "../firebase/Auth.js";
 // for axios endpoint
 import { BASE_API_URL } from "../utils/constants.js";
 
+// css
+import "./AllDailyTasks.css";
+
+// components
 import Popup from "./Popup.js";
 import NewTask from "./NewTask.js";
 
@@ -41,6 +45,7 @@ function AllTasks() {
         <div className="all-tasks-topbar">
           <h1>Your Task List</h1>
           <button
+            className="primary-btn all-tasks-topbar-btn"
             onClick={() => {
               setNewTaskPopup(true);
             }}

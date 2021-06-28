@@ -9,6 +9,9 @@ import { withRouter, Redirect } from "react-router";
 import fire from "../firebase/Fire.js";
 import { AuthContext } from "../firebase/Auth.js";
 
+// css
+import "./LoginSignupPages.css";
+
 // images
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
@@ -60,18 +63,20 @@ const LoginPage = ({ history }) => {
   if (currentUser) return <Redirect to="/" />;
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-left">
-          <img src={octopusSmileRev} className="login-img" alt="octopus-smiling" />
-          <h1>Octo-Do</h1>
+    <div className="log-sign-page">
+      <div className="log-sign-container">
+        <div className="log-sign-left">
+          <img
+            src={octopusSmileRev}
+            className="log-sign-img"
+            alt="octopus-smiling"
+          />
+          <h1 className="log-sign-title">Octo-Do</h1>
         </div>
-
-        <div className="login-right">
-          <h1>Login</h1>
-
-          <form className="login-form" onSubmit={handleLogin}>
-            <div className="login-inputs">
+        <div className="log-sign-right">
+          <h1 className="log-sign-title">Login</h1>
+          <form className="log-sign-form" onSubmit={handleLogin}>
+            <div className="log-sign-inputs">
               <label>Email</label>
               <input
                 name="email"
@@ -81,8 +86,7 @@ const LoginPage = ({ history }) => {
                   setEmail(event.target.value);
                 }}
               />
-              <p className="login-error">{emailError}</p>
-
+              <p className="log-sign-error"> {emailError} </p>
               <label>Password</label>
               <input
                 name="password"
@@ -92,18 +96,16 @@ const LoginPage = ({ history }) => {
                   setPassword(event.target.value);
                 }}
               />
-              <p className="login-error">{passwordError}</p>
+              <p className="log-sign-error"> {passwordError} </p>
             </div>
-
-            <button type="submit" className="login-btn">
+            <button type="submit" className="primary-btn log-sign-btn">
               Login
             </button>
           </form>
-
-          <div className="login-text">
+          <div className="log-sign-text">
             <h1>New to Octo-Do?</h1>
             <button onClick={toSignupPage}>
-              <u>Sign Up</u>
+              <u>Sign up</u>
             </button>
           </div>
         </div>

@@ -10,6 +10,9 @@ import TopBar from "../components/TopBar.js";
 import AllTasks from "../components/AllTasks.js";
 import DailyTasks from "../components/DailyTasks.js";
 
+// css
+import "./HomePage.css";
+
 // images
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
@@ -26,7 +29,6 @@ function HomePage() {
         <div className="home-top">
           <TopBar />
         </div>
-
         <div className="home-bottom">
           <div className="home-left">
             <DailyTasks />

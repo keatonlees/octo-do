@@ -9,6 +9,9 @@ import { withRouter, Redirect } from "react-router";
 import fire from "../firebase/Fire.js";
 import { AuthContext } from "../firebase/Auth.js";
 
+// css
+import "./TopBar.css";
+
 const TopBar = ({ history }) => {
   // for logging out
   const handleLogout = () => {
@@ -23,15 +26,13 @@ const TopBar = ({ history }) => {
   return (
     <div className="topbar-container">
       <div className="topbar-left">
-        <h1>Welcome, {currentUser.displayName}</h1>
-        {/* <h2>It is currently...</h2> */}
+        <h1> Welcome, {currentUser.displayName} </h1>
       </div>
-
       <div className="topbar-right">
-        <button className="topbar-btn" onClick={toAccountPage}>
+        <button className="primary-btn topbar-btn" onClick={toAccountPage}>
           My Account
         </button>
-        <button className="topbar-btn" onClick={handleLogout}>
+        <button className="primary-btn topbar-btn" onClick={handleLogout}>
           Logout
         </button>
       </div>

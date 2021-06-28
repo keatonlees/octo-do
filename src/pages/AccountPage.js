@@ -9,6 +9,9 @@ import { withRouter, Redirect } from "react-router";
 import fire from "../firebase/Fire.js";
 import { AuthContext } from "../firebase/Auth.js";
 
+// css
+import "./AccountPage.css";
+
 // images
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
@@ -66,10 +69,9 @@ const AccountPage = ({ history }) => {
   return (
     <div className="account-page">
       <div className="account-container">
-        <h1>Your account</h1>
-
+        <h1> Your account </h1>
         <div className="account-info">
-          <h1>Name</h1>
+          <h1> Name </h1>
           {nameEdit ? (
             <div className="account-update">
               <input
@@ -85,7 +87,7 @@ const AccountPage = ({ history }) => {
             </div>
           ) : (
             <div className="account-update">
-              <p>{currentUser.displayName}</p>
+              <p> {currentUser.displayName} </p>
               <button
                 onClick={() => {
                   setNameEdit(true);
@@ -95,42 +97,39 @@ const AccountPage = ({ history }) => {
               </button>
             </div>
           )}
-
-          <h1>Email</h1>
+          <h1> Email </h1>
           {emailEdit ? (
             <div className="account-update">
               {/* <input
-              name="email"
-              type="email"
-              defaultValue={currentUser.email}
-              placeholder="New email"
-              onChange={(event) => {
-                setNewEmail(event.target.value);
-              }}
-            />
-            <button onClick={saveEmail}>Save</button>
-            <p className="signup-error">{emailError}</p> */}
+                                  name="email"
+                                  type="email"
+                                  defaultValue={currentUser.email}
+                                  placeholder="New email"
+                                  onChange={(event) => {
+                                    setNewEmail(event.target.value);
+                                  }}
+                                />
+                                <button onClick={saveEmail}>Save</button>
+                                <p className="signup-error">{emailError}</p> */}{" "}
             </div>
           ) : (
             <div className="account-update">
-              <p>{currentUser.email}</p>
+              <p> {currentUser.email} </p>
               {/* <button
-              onClick={() => {
-                setEmailEdit(true);
-              }}
-            >
-              Edit
-            </button> */}
+                                  onClick={() => {
+                                    setEmailEdit(true);
+                                  }}
+                                >
+                                  Edit
+                                </button> */}
             </div>
           )}
-
           {/* <h1>Password</h1>
-        <div className="account-update">
-          <button>Change Password</button>
-        </div> */}
+                    <div className="account-update">
+                      <button>Change Password</button>
+                    </div> */}
         </div>
-
-        <button className="account-back-btn" onClick={toHomePage}>
+        <button className="primary-btn account-back-btn" onClick={toHomePage}>
           Back
         </button>
       </div>

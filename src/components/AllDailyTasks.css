@@ -1,0 +1,43 @@
+/* ==================== ALL/DAILY TASKS ==================== */
+
+.all-tasks-container,
+.daily-tasks-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-colour);
+  overflow: hidden;
+  /* border: 1px solid red; */
+}
+
+.all-tasks-content,
+.daily-tasks-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: flex-start;
+  width: 95%;
+  height: 95%;
+  /* border: 1px solid orange; */
+}
+
+.all-tasks-content h1,
+.daily-tasks-content h1 {
+  margin: 0;
+}
+
+.all-tasks-topbar {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.all-tasks-topbar-btn {
+  width: 80px;
+  font-size: 16px;
+}

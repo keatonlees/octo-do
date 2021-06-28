@@ -1,0 +1,191 @@
+/* ==================== LOGIN / SIGN UP PAGES ==================== */
+
+.log-sign-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 70vh;
+  border-radius: var(--log-sign-border-radius);
+  background-color: white;
+  color: var(--text-colour);
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.log-sign-left,
+.log-sign-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+}
+
+.log-sign-left {
+  background-color: var(--secondary-colour);
+  border-radius: var(--log-sign-border-radius) 0 0 var(--log-sign-border-radius);
+}
+
+.log-sign-title {
+  margin-top: -10px;
+  margin-bottom: 5px;
+}
+
+.log-sign-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+
+.log-sign-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.log-sign-inputs label {
+  font-weight: 700;
+  margin-bottom: -5px;
+}
+
+.log-sign-inputs input {
+  width: 100%;
+  margin-bottom: -10px;
+  text-decoration: none;
+  color: var(--primary-colour);
+  border: none;
+  border-bottom: solid 3px var(--secondary-colour);
+  transition: 0.3s all;
+}
+
+.log-sign-inputs input::placeholder {
+  color: var(--secondary-colour);
+}
+
+.log-sign-inputs input:focus {
+  outline: none !important;
+  border-bottom: 3px solid var(--primary-colour);
+}
+
+.log-sign-error {
+  max-width: 100%;
+  color: red;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.log-sign-btn {
+  width: 75%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.log-sign-text h1,
+.log-sign-text button {
+  font-weight: 500;
+  color: var(--secondary-colour);
+}
+
+.log-sign-text h1 {
+  margin-top: 0px;
+  margin-bottom: -10px;
+}
+
+.log-sign-text button {
+  border: none;
+  background-color: transparent;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
+/* S Devices (large phones, portrait tablets, small laptops) */
+@media only screen and (max-width: 600px) {
+  .log-sign-container {
+    width: 90vw;
+  }
+  /* hide left side */
+  .log-sign-left {
+    display: none;
+    width: 0%;
+  }
+  .log-sign-right {
+    width: 100%;
+  }
+  .log-sign-title {
+    font-size: 20px;
+  }
+  .log-sign-inputs label,
+  .log-sign-inputs input,
+  .log-sign-btn,
+  .log-sign-text h1,
+  .log-sign-text button {
+    font-size: 16px;
+  }
+  .log-sign-inputs input {
+    height: 20px;
+  }
+  .log-sign-error {
+    font-size: 10px;
+    line-height: 12px;
+  }
+}
+/* M Devices (landscape tablets, medium laptops) */
+@media only screen and (min-width: 600px) {
+  .log-sign-container {
+    width: 70vw;
+  }
+  .log-sign-img {
+    width: 150px;
+  }
+  .log-sign-title {
+    font-size: 26px;
+  }
+  .log-sign-inputs label,
+  .log-sign-inputs input,
+  .log-sign-btn,
+  .log-sign-text h1,
+  .log-sign-text button {
+    font-size: 18px;
+  }
+  .log-sign-inputs input {
+    height: 24px;
+  }
+  .log-sign-error {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+/* L Devices (large laptops, medium desktops/monitors) */
+@media only screen and (min-width: 992px) {
+  .log-sign-container {
+    width: 50vw;
+  }
+  .log-sign-img {
+    width: 250px;
+  }
+  .log-sign-title {
+    font-size: 32px;
+  }
+  .log-sign-inputs label,
+  .log-sign-inputs input,
+  .log-sign-btn,
+  .log-sign-text h1,
+  .log-sign-text button {
+    font-size: 20px;
+  }
+  .log-sign-inputs input {
+    height: 28px;
+  }
+  .log-sign-error {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
