@@ -32,6 +32,43 @@ app.post("/addUser/:name/:uid", async (req, res) => {
   }
 });
 
+// get tasks for specific user
+app.get("/allTasks/:user", async (req, res) => {
+  const userUID = req.params.user;
+  const query =
+    "SELECT * FROM task_list WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?)";
+
+  db.query(query, userUID, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /allTasks");
+      console.log(err);
+      res.send(400).send("Error while trying get all tasks from database");
+      return;
+    }
+    res.send(result);
+  });
+});
+
+// get a task from id
+app.get("/task/:user/:id", (req, res) => {
+  const userUID = req.params.user;
+  const taskID = req.params.id;
+  const query =
+    "SELECT * FROM task_list WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?) AND id = ?";
+  const values = [userUID, taskID];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /task");
+      console.log(err);
+      res.send(400).send("Error while trying get a task from database");
+      return;
+    }
+    res.send(result);
+  });
+});
+
+// add task
 app.post("/addTask/:user/:name/:date/:time", async (req, res) => {
   const userUID = req.params.user;
   const taskName = req.params.name;
@@ -41,27 +78,53 @@ app.post("/addTask/:user/:name/:date/:time", async (req, res) => {
     "INSERT INTO task_list (task_name, task_date, task_time, user_id) VALUES (?,?,?, (SELECT id FROM user_list WHERE user_uid = ?))";
   const values = [taskName, taskDate, taskTime, userUID];
 
-  try {
-    db.query(query, values);
-    res.send("User added to database");
-  } catch (error) {
-    res.send(400).send("Error while trying to add task to database");
-  }
-});
-
-app.get("/allTasks/:user", async (req, res) => {
-  const userUID = req.params.user;
-  const query =
-    "SELECT * FROM task_list WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?)";
-
-  db.query(query, userUID, (err, result) => {
+  db.query(query, values, (err, result) => {
     if (err) {
-      console.log(">>> ERROR AT /getAllTasks");
+      console.log(">>> ERROR AT /addTask");
       console.log(err);
       res.send(400).send("Error while trying to add task to database");
       return;
     }
-    res.send(result);
+    res.send("Task added to database");
+  });
+});
+
+app.delete("/deleteTask/:user/:id", async (req, res) => {
+  const userUID = req.params.user;
+  const taskID = req.params.id;
+  const query =
+    "DELETE FROM task_list WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?) AND id = ?";
+  const values = [userUID, taskID];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /deleteTask");
+      console.log(err);
+      res.send(400).send("Error while trying to delete task from database");
+      return;
+    }
+    res.send("Task deleted successfully");
+  });
+});
+
+app.put("/updateTask/:user/:id/:name/:date/:time", async (req, res) => {
+  const userUID = req.params.user;
+  const taskID = req.params.id;
+  const taskName = req.params.name;
+  const taskDate = req.params.date;
+  const taskTime = req.params.time;
+  const query =
+    "UPDATE task_list SET task_name = ?, task_date = ?, task_time = ? WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?) AND id = ?";
+  const values = [taskName, taskDate, taskTime, userUID, taskID];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /updateTask");
+      console.log(err);
+      res.send(400).send("Error while trying to update task");
+      return;
+    }
+    res.send("Task updated successfully!");
   });
 });
 
@@ -72,22 +135,3 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`);
 });
-
-// app.get("/jobs", async (req, res) => {
-//   try {
-//     let { description = "", full_time, location = "", page = 1 } = req.query;
-
-//     description = description ? encodeURIComponent(description) : "";
-//     location = location ? encodeURIComponent(location) : "";
-//     full_time = full_time === "true" ? "&full_time=true" : "";
-//     if (page) {
-//       page = parseInt(page);
-//       page = isNaN(page) ? "" : `&page=${page}`;
-//     }
-//     const query = `https://jobs.github.com/positions.json?description=${description}&location=${location}${full_time}${page}`;
-//     const result = await axios.get(query);
-//     res.send(result.data);
-//   } catch (error) {
-//     res.status(400).send("Error while getting list of jobs.Try again later.");
-//   }
-// });

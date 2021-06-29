@@ -35,9 +35,59 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .all-tasks-topbar-btn {
   width: 80px;
   font-size: 16px;
+}
+
+.all-tasks-display {
+  width: 100%;
+}
+.all-tasks-row {
+  display: table;
+  width: 100%;
+  height: var(--all-tasks-row-height);
+  margin-bottom: 2px;
+  border: 1px solid lightgrey;
+}
+.all-tasks-col {
+  display: table-cell;
+  vertical-align: middle;
+}
+.all-tasks-col:first-child {
+  text-align: center;
+}
+.all-tasks-col:last-child {
+  text-align: right;
+}
+
+.all-tasks-handle {
+  width: var(--all-tasks-row-height);
+}
+.all-tasks-date,
+.all-tasks-time {
+  width: 20%;
+}
+.all-tasks-edit,
+.all-tasks-delete {
+  width: var(--all-tasks-row-height);
+}
+
+.all-tasks-col p {
+  margin: 0;
+  padding: 0;
+}
+.all-tasks-name-text,
+.all-tasks-date-text,
+.all-tasks-time-text {
+  margin-left: 3px !important;
+}
+.all-tasks-edit-btn,
+.all-tasks-delete-btn {
+  width: var(--all-tasks-row-height);
+  height: var(--all-tasks-row-height);
+  margin-left: 3px;
 }

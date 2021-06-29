@@ -13,6 +13,8 @@
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
   --topbar-side-margin: 25px;
+
+  --all-tasks-row-height: 27.5px;
 }
 
 html,
@@ -76,91 +78,76 @@ button:hover {
   width: 100px;
   opacity: 0.5;
 }
-
 .flair-img-1 {
   top: 7%;
   left: 5%;
   transform: rotate(-15deg);
 }
-
 .flair-img-2 {
   top: 3%;
   left: 25%;
   transform: rotate(10deg);
 }
-
 .flair-img-3 {
   top: 9%;
   left: 45%;
   transform: rotate(-20deg);
 }
-
 .flair-img-4 {
   top: 5%;
   right: 25%;
   transform: rotate(-5deg);
 }
-
 .flair-img-5 {
   top: 15%;
   right: 5%;
   transform: rotate(30deg);
 }
-
 .flair-img-6 {
   top: 30%;
   left: 15%;
   transform: rotate(-5deg);
 }
-
 .flair-img-7 {
   top: 35%;
   right: 20%;
   transform: rotate(5deg);
 }
-
 .flair-img-8 {
   top: 50%;
   left: 1%;
   transform: rotate(5deg);
 }
-
 .flair-img-9 {
   bottom: 25%;
   left: 20%;
   transform: rotate(-20deg);
 }
-
 .flair-img-10 {
   bottom: 33%;
   right: 10%;
   transform: rotate(-15deg);
 }
-
 .flair-img-11 {
   bottom: 10%;
   left: 7%;
   transform: rotate(25deg);
 }
-
 .flair-img-12 {
   bottom: 1%;
   left: 35%;
   transform: rotate(-5deg);
 }
-
 .flair-img-13 {
   bottom: 4%;
   right: 30%;
   transform: rotate(-10deg);
 }
-
 .flair-img-14 {
   bottom: 8%;
   right: 3%;
   transform: rotate(10deg);
 }
-
 .flair-img-15 {
   top: 45%;
   left: 47%;
