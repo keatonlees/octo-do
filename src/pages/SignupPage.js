@@ -1,42 +1,30 @@
-// base imports
 import React from "react";
-import { useCallback, useState } from "react";
+import { useState, useCallback } from "react";
 import Axios from "axios";
-
-// routing imports
 import { withRouter } from "react-router";
-
-// firebase imports
 import fire from "../firebase/Fire.js";
-
-// for axios endpoint
 import { BASE_API_URL } from "../utils/constants.js";
 
-// css
 import "./LoginSignupPages.css";
 
-// images
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
 import octopusWave from "../images/octopus_waving.png";
 import octopusWaveRev from "../images/octopus_waving_reversed.png";
 
 const SignupPage = ({ history }) => {
-  // node/express server endpoint
   const endpoint = BASE_API_URL;
 
-  // global state variables
   const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
+  const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordConfirmationError, setPasswordConfirmationError] =
     useState("");
 
-  // clear errors
   const clearErrors = () => {
     setFirstNameError("");
     setEmailError("");
@@ -44,7 +32,6 @@ const SignupPage = ({ history }) => {
     setPasswordConfirmationError("");
   };
 
-  // sign user up
   const handleSignUp = useCallback(
     async (event) => {
       event.preventDefault();
@@ -65,7 +52,6 @@ const SignupPage = ({ history }) => {
         await addUserToDB(fire.auth().currentUser.uid);
         history.push("/");
       } catch (error) {
-        // alert(error);
         switch (error.code) {
           case "auth/invalid-email":
           case "auth/email-already-in-use":

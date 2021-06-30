@@ -1,20 +1,13 @@
-// base imports
 import React from "react";
-
-// routing imports
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute.js";
-
-// firebase import
 import { AuthProvider } from "./firebase/Auth.js";
 
-// pages
 import HomePage from "./pages/HomePage.js";
 import LoginPage from "./pages/LoginPage.js";
 import SignupPage from "./pages/SignupPage.js";
 import AccountPage from "./pages/AccountPage.js";
 
-// styles
 import "./App.css";
 
 function App() {

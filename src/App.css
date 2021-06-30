@@ -1,13 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@400;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap");
 :root {
+  --bg-colour: white;
   --primary-colour: #be29ec;
+  --primary-colour-hover: #961ebb;
   --secondary-colour: #d896ff;
   --text-colour: #50289b;
   --light-accent-colour: lightgray;
 
   --log-sign-border-radius: 15px;
   --home-border-radius: 15px;
+  --acount-border-radius: 15px;
 
   --home-box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -15,6 +18,19 @@
   --topbar-side-margin: 25px;
 
   --all-tasks-row-height: 27.5px;
+  --all-tasks-row-radius: 5px;
+
+  --daily-tasks-row-height: 27.5px;
+  --daily-tasks-row-radius: 5px;
+}
+
+[data-theme="dark"] {
+  --bg-colour: #50289b;
+  --primary-colour: #d896ff;
+  --primary-colour-hover: #961ebb;
+  --secondary-colour: #be29ec;
+  --text-colour: white;
+  --light-accent-colour: lightgray;
 }
 
 html,

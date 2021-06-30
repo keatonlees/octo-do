@@ -29,7 +29,8 @@
   margin: 0;
 }
 
-.all-tasks-topbar {
+.all-tasks-topbar,
+.daily-tasks-topbar {
   width: 100%;
   height: 40px;
   display: flex;
@@ -37,21 +38,25 @@
   justify-content: space-between;
   margin-bottom: 10px;
 }
-
-.all-tasks-topbar-btn {
-  width: 80px;
+.all-tasks-topbar-btn,
+.daily-tasks-topbar-btn {
+  width: 100px;
   font-size: 16px;
 }
-
-.all-tasks-display {
+.all-tasks-display,
+.daily-tasks-display {
   width: 100%;
 }
+
+/* ==================== ALL TASKS ==================== */
 .all-tasks-row {
   display: table;
   width: 100%;
   height: var(--all-tasks-row-height);
   margin-bottom: 2px;
-  border: 1px solid lightgrey;
+  border: 1px solid var(--light-accent-colour);
+  border-radius: var(--all-tasks-row-radius);
+  background-color: white;
 }
 .all-tasks-col {
   display: table-cell;
@@ -63,7 +68,6 @@
 .all-tasks-col:last-child {
   text-align: right;
 }
-
 .all-tasks-handle {
   width: var(--all-tasks-row-height);
 }
@@ -75,7 +79,6 @@
 .all-tasks-delete {
   width: var(--all-tasks-row-height);
 }
-
 .all-tasks-col p {
   margin: 0;
   padding: 0;
@@ -90,4 +93,57 @@
   width: var(--all-tasks-row-height);
   height: var(--all-tasks-row-height);
   margin-left: 3px;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--all-tasks-row-radius);
+  color: white;
+}
+.all-tasks-edit-btn {
+  background-color: var(--primary-colour);
+}
+.all-tasks-edit-btn:hover {
+  background-color: var(--primary-colour-hover);
+}
+.all-tasks-delete-btn {
+  background-color: red;
+}
+.all-tasks-delete-btn:hover {
+  background-color: firebrick;
+}
+
+/* ==================== DAILY TASKS ==================== */
+.daily-tasks-topbar-btn {
+  height: 40px;
+  border: none;
+  border-radius: 100px;
+  color: white;
+  background-color: red;
+  transition: 0.2s all;
+}
+.daily-tasks-topbar-btn:hover {
+  background-color: firebrick;
+}
+.daily-tasks-row {
+  display: table;
+  width: 100%;
+  height: var(--daily-tasks-row-height);
+  margin-bottom: 2px;
+  border-radius: var(--daily-tasks-row-radius);
+}
+.daily-tasks-col {
+  display: table-cell;
+  vertical-align: middle;
+}
+.daily-tasks-col:first-child {
+  text-align: center;
+}
+.daily-tasks-time-display {
+  width: 15%;
+  background-color: skyblue;
+  border-radius: var(--daily-tasks-row-radius);
+}
+.daily-tasks-empty-dropzone {
+  height: var(--daily-tasks-row-height);
+  border: 1px dashed var(--light-accent-colour);
+  border-radius: var(--daily-tasks-row-radius);
 }

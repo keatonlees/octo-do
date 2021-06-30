@@ -14,16 +14,31 @@
 .topbar-right {
   width: 50%;
   height: 100%;
-  display: flex;
-  align-items: center;
 }
 
 .topbar-left {
-  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   margin-left: var(--topbar-side-margin);
+}
+.topbar-left h1,
+.topbar-left h3 {
+  margin: 0;
+  padding: 0;
+}
+.topbar-left h1 {
+  margin-bottom: -5px;
+}
+.topbar-left h3 {
+  margin-top: -5px;
+  margin-bottom: 2px;
 }
 
 .topbar-right {
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
   margin-right: var(--topbar-side-margin);
 }

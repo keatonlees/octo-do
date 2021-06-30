@@ -1,35 +1,38 @@
-// base imports
 import React from "react";
-import { useCallback, useContext, useState } from "react";
-
-// routing imports
-import { withRouter, Redirect } from "react-router";
-
-// firebase imports
-import fire from "../firebase/Fire.js";
+import { useState, useEffect, useContext } from "react";
+import { withRouter } from "react-router";
 import { AuthContext } from "../firebase/Auth.js";
 
-// css
 import "./AccountPage.css";
 
-// images
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
 import octopusWave from "../images/octopus_waving.png";
 import octopusWaveRev from "../images/octopus_waving_reversed.png";
 
+function useLSState(key, initialValue) {
+  const [value, setValue] = useState(() => {
+    const persistentValue = localStorage.getItem(key);
+    return persistentValue !== null ? persistentValue : initialValue;
+  });
+  useEffect(() => {
+    localStorage.setItem(key, value);
+  }, [key, value]);
+  return [value, setValue];
+}
+
 const AccountPage = ({ history }) => {
   const [nameEdit, setNameEdit] = useState(false);
   const [emailEdit, setEmailEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
-
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
-
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [darkMode, setDarkMode] = useLSState("darkMode", false);
 
-  // clear errors
+  const { currentUser } = useContext(AuthContext);
+
   const clearErrors = () => {
     setEmailError("");
     setPasswordError("");
@@ -40,31 +43,9 @@ const AccountPage = ({ history }) => {
     setNameEdit(false);
   };
 
-  //   const saveEmail = useCallback(
-  //     async (event) => {
-  //       event.preventDefault();
-  //       clearErrors();
-
-  //       try {
-  //         await currentUser.updateEmail(newEmail);
-  //         setEmailEdit(false);
-  //       } catch (error) {
-  //         alert(error);
-  //         switch (error.code) {
-  //           case "auth/invalid-email":
-  //           case "auth/email-already-in-use":
-  //             setEmailError(error.message);
-  //             break;
-  //           default:
-  //             break;
-  //         }
-  //       }
-  //     },
-  //     [newEmail]
-  //   );
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const toHomePage = () => history.push("/");
-  const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="account-page">
@@ -128,6 +109,12 @@ const AccountPage = ({ history }) => {
                     <div className="account-update">
                       <button>Change Password</button>
                     </div> */}
+
+          {/*<h1>Theme</h1>
+           <div className="account-update">
+            <p>Current theme: </p>
+            <button onClick={toggleDarkMode}>Toggle</button>
+          </div> */}
         </div>
         <button className="primary-btn account-back-btn" onClick={toHomePage}>
           Back
@@ -153,3 +140,26 @@ const AccountPage = ({ history }) => {
 };
 
 export default withRouter(AccountPage);
+
+//   const saveEmail = useCallback(
+//     async (event) => {
+//       event.preventDefault();
+//       clearErrors();
+
+//       try {
+//         await currentUser.updateEmail(newEmail);
+//         setEmailEdit(false);
+//       } catch (error) {
+//         alert(error);
+//         switch (error.code) {
+//           case "auth/invalid-email":
+//           case "auth/email-already-in-use":
+//             setEmailError(error.message);
+//             break;
+//           default:
+//             break;
+//         }
+//       }
+//     },
+//     [newEmail]
+//   );

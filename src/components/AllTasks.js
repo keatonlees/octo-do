@@ -1,44 +1,27 @@
-// base imports
 import React, { useContext } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Axios from "axios";
-
+import { AuthContext } from "../firebase/Auth.js";
+import { BASE_API_URL } from "../utils/constants.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
-import { AuthContext } from "../firebase/Auth.js";
-
-// for axios endpoint
-import { BASE_API_URL } from "../utils/constants.js";
-
-// css
 import "./AllDailyTasks.css";
 
-// components
 import Popup from "./Popup.js";
 import NewTask from "./NewTask.js";
 import EditTask from "./EditTask.js";
+import AllTaskItem from "./AllTaskItem.js";
 
-function AllTasks() {
-  // node/express server endpoint
+function AllTasks({ allTaskList, getAllTasks }) {
   const endpoint = BASE_API_URL;
 
   const [newTaskPopup, setNewTaskPopup] = useState(false);
   const [editTaskPopup, setEditTaskPopup] = useState(false);
-  const [allTaskList, setAllTaskList] = useState([]);
   const [taskToEdit, setTaskToEdit] = useState(0);
 
-  useEffect(() => {
-    getAllTasks();
-  }, []);
-
-  const getAllTasks = async () => {
-    const { status, data } = await Axios.get(
-      endpoint + `/allTasks/${currentUser.uid}`
-    );
-    if (status === 200) setAllTaskList(data);
-    else console.log(data);
-  };
+  const { currentUser } = useContext(AuthContext);
 
   const deleteTask = async (task_id) => {
     const { status, data } = await Axios.delete(
@@ -52,8 +35,6 @@ function AllTasks() {
     setTaskToEdit(task_id);
     setEditTaskPopup(true);
   };
-
-  const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="all-tasks-container">
@@ -78,46 +59,48 @@ function AllTasks() {
           <EditTask closePopup={setEditTaskPopup} taskID={taskToEdit} />
         </Popup>
 
-        <div className="all-tasks-display">
-          {allTaskList.map((data, map) => {
-            return (
-              <div className="all-tasks-row">
-                <span className="all-tasks-col all-tasks-handle">
-                  <FontAwesomeIcon icon={faPlus} />
-                </span>
-                <span className="all-tasks-col all-tasks-name">
-                  <p className="all-tasks-name-text">{data.task_name}</p>
-                </span>
-                <span className="all-tasks-col all-tasks-date">
-                  <p className="all-tasks-date-text">{data.task_date}</p>
-                </span>
-                <span className="all-tasks-col all-tasks-time">
-                  <p className="all-tasks-time-text">{data.task_time}</p>
-                </span>
-                <span className="all-tasks-col all-tasks-edit">
-                  <button
-                    className="all-tasks-edit-btn"
-                    onClick={() => {
-                      handleOpenEdit(data.id);
-                    }}
+        <Droppable droppableId="all-tasks-display" isDropDisabled={true}>
+          {(provided) => (
+            <div className="all-tasks-display" ref={provided.innerRef}>
+              {allTaskList.map((data, index) => {
+                return (
+                  <Draggable
+                    key={data.id}
+                    draggableId={data.task_name}
+                    index={index}
                   >
-                    E
-                  </button>
-                </span>
-                <span className="all-tasks-col all-tasks-delete">
-                  <button
-                    className="all-tasks-delete-btn"
-                    onClick={() => {
-                      deleteTask(data.id);
-                    }}
-                  >
-                    X
-                  </button>
-                </span>
-              </div>
-            );
-          })}
-        </div>
+                    {(provided, snapshot) => (
+                      <React.Fragment>
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          style={provided.draggableProps.style}
+                          {...provided.dragHandleProps}
+                        >
+                          <AllTaskItem
+                            data={data}
+                            handleOpenEdit={handleOpenEdit}
+                            deleteTask={deleteTask}
+                          />
+                        </div>
+                        {snapshot.isDragging && !snapshot.isDropAnimating && (
+                          <div>
+                            <AllTaskItem
+                              data={data}
+                              handleOpenEdit={handleOpenEdit}
+                              deleteTask={deleteTask}
+                            />
+                          </div>
+                        )}
+                      </React.Fragment>
+                    )}
+                  </Draggable>
+                );
+              })}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
     </div>
   );

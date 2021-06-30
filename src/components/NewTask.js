@@ -1,29 +1,25 @@
-// base imports
 import React from "react";
 import { useState, useContext } from "react";
 import Axios from "axios";
-
 import { AuthContext } from "../firebase/Auth.js";
-
-// for axios endpoint
 import { BASE_API_URL } from "../utils/constants.js";
+import moment from "moment";
 
 function NewTask(props) {
-  // node/express server endpoint
   const endpoint = BASE_API_URL;
 
   const [taskName, setTaskName] = useState("");
-  const [taskDate, setTaskDate] = useState("");
-  const [taskTime, setTaskTime] = useState("");
-
+  const [taskDate, setTaskDate] = useState(moment().format("YYYY-MM-DD"));
+  const [taskTime, setTaskTime] = useState("12:00:00");
   const [taskNameError, setTaskNameError] = useState("");
+
+  const { currentUser } = useContext(AuthContext);
 
   const handleNewTask = async () => {
     if (!taskName) {
       setTaskNameError("Please enter a name");
       return;
     }
-
     await addTaskToDB();
     closePopup();
   };
@@ -37,12 +33,7 @@ function NewTask(props) {
     else console.log(data);
   };
 
-  const closePopup = () => {
-    props.closePopup(false);
-  };
-
-  // get user info to pass to database
-  const { currentUser } = useContext(AuthContext);
+  const closePopup = () => props.closePopup(false);
 
   return (
     <div className="new-task-content">
