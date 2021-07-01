@@ -46,6 +46,10 @@
 .all-tasks-display,
 .daily-tasks-display {
   width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 /* ==================== ALL TASKS ==================== */
@@ -138,12 +142,50 @@
   text-align: center;
 }
 .daily-tasks-time-display {
-  width: 15%;
-  background-color: skyblue;
+  width: 12%;
+  color: white;
+  background-color: var(--primary-colour);
   border-radius: var(--daily-tasks-row-radius);
 }
+.daily-tasks-item-content,
 .daily-tasks-empty-dropzone {
   height: var(--daily-tasks-row-height);
-  border: 1px dashed var(--light-accent-colour);
   border-radius: var(--daily-tasks-row-radius);
+}
+.daily-tasks-item-content {
+  border: 1px solid var(--light-accent-colour);
+}
+.daily-tasks-empty-dropzone {
+  border: 1px dashed var(--light-accent-colour);
+}
+.daily-tasks-item-content {
+  display: table;
+  width: 100%;
+  height: var(--daily-tasks-row-height);
+}
+.daily-tasks-item-col {
+  display: table-cell;
+  vertical-align: middle;
+}
+.daily-tasks-item-col:first-child {
+  text-align: left;
+}
+.daily-tasks-item-col:last-child {
+  text-align: right;
+}
+.daily-tasks-item-col p {
+  margin: 0;
+  padding: 0;
+}
+.daily-tasks-reset-btn {
+  width: var(--all-tasks-row-height);
+  height: var(--all-tasks-row-height);
+  text-decoration: none;
+  border: none;
+  border-radius: var(--all-tasks-row-radius);
+  color: white;
+  background-color: red;
+}
+.daily-tasks-reset-btn:hover {
+  background-color: firebrick;
 }

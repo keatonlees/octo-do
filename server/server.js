@@ -73,18 +73,19 @@ app.get("/task/:user/:id", (req, res) => {
 app.get("/dailyTasksFromTime/:user/:time", (req, res) => {
   const userUID = req.params.user;
   const timeSlot = req.params.time;
-  // const query =
-  //   "SELECT * FROM list WHERE (SELECT id FROM user_list WHERE user_uid = ?) AND (SELECT id FROM time_list where time_slot = ?)";
+  const query =
+    "SELECT task_list.* FROM daily_list JOIN task_list ON task_list.id = daily_list.task_id WHERE daily_list.user_id = (SELECT id FROM user_list WHERE user_uid = ?) AND daily_list.time_id = (SELECT id FROM time_list WHERE time_slot = ?)";
   const values = [userUID, timeSlot];
 
-  // db.query(query, values, (err, result) => {
-  //   if (err) {
-  //     console.log(">>> ERROR AT /dailyTasksFromTime");
-  //     console.log(err);
-  //     res.send(400).send("Error while trying to get daily tasks");
-  //   }
-  //   res.send(result);
-  // });
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /dailyTasksFromTime");
+      console.log(err);
+      res.send(400).send("Error while trying to get daily tasks");
+      return;
+    }
+    res.send(result);
+  });
 });
 
 // add task
@@ -113,17 +114,19 @@ app.post("/addToDaily/:user/:id/:time", async (req, res) => {
   const userUID = req.params.user;
   const taskID = req.params.id;
   const timeSlot = req.params.time;
-  // const query = "INSERT INTO list (user_id, task_id, time_id) VALUES ((SELECT id FROM user_list WHERE user_uid = ?),?,(SELECT id FROM time_list WHERE time_slot = ?))";
-  const values = [userUID, taskId, timeSlot];
+  const query =
+    "INSERT INTO daily_list (task_id, time_id, user_id) VALUES (?, (SELECT id FROM time_list WHERE time_slot = ?), (SELECT id FROM user_list WHERE user_uid = ?))";
+  const values = [taskID, timeSlot, userUID];
 
-  // db.query(query, values, (err, result) => {
-  //   if (err) {
-  //     console.log(">>> ERROR AT /addToDaily");
-  //     console.log(err);
-  //     res.send(400).send("Error while trying ot add task to daily list");
-  //   }
-  //   res.send("Task added to daily list");
-  // });
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /addToDaily");
+      console.log(err);
+      // res.send(400).send("Error while trying to add task to daily list");
+      return;
+    }
+    res.send("Task added to daily list");
+  });
 });
 
 // delete task
@@ -142,6 +145,43 @@ app.delete("/deleteTask/:user/:id", async (req, res) => {
       return;
     }
     res.send("Task deleted successfully");
+  });
+});
+
+// delete all daily tasks for user
+app.delete("/resetAll/:user", async (req, res) => {
+  const userUID = req.params.user;
+  const query =
+    "DELETE FROM daily_list WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?)";
+
+  db.query(query, userUID, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /resetAll");
+      console.log(err);
+      res.send(400).send("Error while trying to reset all daily tasks");
+      return;
+    }
+    res.send("Reset all daily tasks");
+  });
+});
+
+// delete specific daily task for user
+app.delete("/reset/:user/:id/:time", async (req, res) => {
+  const userUID = req.params.user;
+  const taskID = req.params.id;
+  const timeSlot = req.params.time;
+  const query =
+    "DELETE FROM daily_list WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?) AND task_id = ? AND time_id = (SELECT id FROM time_list WHERE time_slot = ?)";
+  const values = [userUID, taskID, timeSlot];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /reset");
+      console.log(err);
+      res.send(400).send("Error while trying to reset a daily task");
+      return;
+    }
+    res.send("Reset daily task");
   });
 });
 

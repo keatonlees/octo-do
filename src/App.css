@@ -67,6 +67,11 @@ button:hover {
   border: 3px solid var(--text-colour);
 }
 
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 /* ==================== MEDIA QUERIES ==================== */
 
 /* XS Devices (phones) */

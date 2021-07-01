@@ -29,6 +29,9 @@ function HomePage() {
   useEffect(() => {
     getAllTasks();
   }, []);
+  useEffect(() => {
+    getDailyTasksFromTime();
+  }, []);
 
   const getAllTasks = async () => {
     const { status, data } = await Axios.get(
@@ -53,15 +56,15 @@ function HomePage() {
   const handleOnDragEnd = (result) => {
     const { source, destination } = result;
     if (!destination) return;
-    if (destination) console.log(source, destination);
-    // addToDaily(allTaskList[source.index], destination.droppableId);
+    if (destination)
+      addToDaily(allTaskList[source.index].id, destination.droppableId);
   };
 
   const addToDaily = async (task_id, time_slot) => {
     const { status, data } = await Axios.post(
       endpoint + `/addToDaily/${currentUser.uid}/${task_id}/${time_slot}`
     );
-    if (status === 200) console.log(data);
+    if (status === 200) getDailyTasksFromTime();
     else console.log(data);
   };
 
@@ -77,6 +80,7 @@ function HomePage() {
               <DailyTasks
                 dailyTaskList={dailyTaskList}
                 daily_time_start={daily_time_start}
+                getDailyTasksFromTime={getDailyTasksFromTime}
               />
             </div>
             <div className="home-right">
