@@ -9,8 +9,10 @@ import { faUndoAlt, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 function DailyTasks({
   dailyTaskList,
+  setDailyTaskList,
   daily_time_start,
-  getDailyTasksFromTime,
+  daily_time_end,
+  updateDailyTimeSlot,
 }) {
   const endpoint = BASE_API_URL;
 
@@ -20,15 +22,23 @@ function DailyTasks({
     const { status, data } = await Axios.delete(
       endpoint + `/resetAll/${currentUser.uid}`
     );
-    if (status === 200) getDailyTasksFromTime();
+    if (status === 200) clearDailyList();
     else console.log(data);
   };
+
+  const clearDailyList = () => {
+    const data_storage = [];
+    for (let i = daily_time_start; i < daily_time_end + 1; i++) {
+      data_storage.push([]);
+    }
+    setDailyTaskList(data_storage);
+  }
 
   const resetDailyTask = async (task_id, time_slot) => {
     const { status, data } = await Axios.delete(
       endpoint + `/reset/${currentUser.uid}/${task_id}/${time_slot}`
     );
-    if (status === 200) getDailyTasksFromTime();
+    if (status === 200) updateDailyTimeSlot(time_slot);
     else console.log(data);
   };
 

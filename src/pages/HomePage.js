@@ -23,6 +23,7 @@ function HomePage() {
   const [dailyTaskList, setDailyTaskList] = useState([]);
   const daily_time_start = 7;
   const daily_time_end = 23;
+  const onLoad = true; // trick var so full daily list is only gotten once onLoad
 
   const { currentUser } = useContext(AuthContext);
 
@@ -30,8 +31,8 @@ function HomePage() {
     getAllTasks();
   }, []);
   useEffect(() => {
-    getDailyTasksFromTime();
-  }, []);
+    getAllDailyTasks();
+  }, [onLoad]);
 
   const getAllTasks = async () => {
     const { status, data } = await Axios.get(
@@ -41,7 +42,7 @@ function HomePage() {
     else console.log(data);
   };
 
-  const getDailyTasksFromTime = async () => {
+  const getAllDailyTasks = async () => {
     const data_storage = [];
     for (let i = daily_time_start; i < daily_time_end + 1; i++) {
       const { status, data } = await Axios.get(
@@ -51,6 +52,19 @@ function HomePage() {
       else console.log(data);
     }
     setDailyTaskList(data_storage);
+  };
+
+  const updateDailyTimeSlot = async (time_slot) => {
+    const daily_list = dailyTaskList;
+    const index = time_slot - daily_time_start;
+    const { status, data } = await Axios.get(
+      endpoint + `/dailyTasksFromTime/${currentUser.uid}/${time_slot}`
+    );
+    if (status === 200) {
+      daily_list.splice(index, 1, data);
+      setDailyTaskList([]);
+      setDailyTaskList(daily_list);
+    } else console.log(data);
   };
 
   const handleOnDragEnd = (result) => {
@@ -64,7 +78,7 @@ function HomePage() {
     const { status, data } = await Axios.post(
       endpoint + `/addToDaily/${currentUser.uid}/${task_id}/${time_slot}`
     );
-    if (status === 200) getDailyTasksFromTime();
+    if (status === 200) updateDailyTimeSlot(time_slot);
     else console.log(data);
   };
 
@@ -79,8 +93,10 @@ function HomePage() {
             <div className="home-left">
               <DailyTasks
                 dailyTaskList={dailyTaskList}
+                setDailyTaskList={setDailyTaskList}
                 daily_time_start={daily_time_start}
-                getDailyTasksFromTime={getDailyTasksFromTime}
+                daily_time_end={daily_time_end}
+                updateDailyTimeSlot={updateDailyTimeSlot}
               />
             </div>
             <div className="home-right">
