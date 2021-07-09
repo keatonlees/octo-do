@@ -10,6 +10,7 @@ import { faUndoAlt, faMinus } from "@fortawesome/free-solid-svg-icons";
 function DailyTasks({
   dailyTaskList,
   setDailyTaskList,
+  curHour,
   daily_time_start,
   daily_time_end,
   updateDailyTimeSlot,
@@ -32,7 +33,7 @@ function DailyTasks({
       data_storage.push([]);
     }
     setDailyTaskList(data_storage);
-  }
+  };
 
   const resetDailyTask = async (task_id, time_slot) => {
     const { status, data } = await Axios.delete(
@@ -56,54 +57,65 @@ function DailyTasks({
         </div>
 
         <div className="daily-tasks-display">
-          {dailyTaskList.map((dailyTimeSlot, i) => {
-            return (
-              <div className="daily-tasks-row" key={i}>
-                <div className="daily-tasks-col daily-tasks-time-display">
-                  {i + daily_time_start > 12
-                    ? i + daily_time_start - 12
-                    : i + daily_time_start}
-                  :00
-                </div>
-
-                <Droppable droppableId={`${i + daily_time_start}`}>
-                  {(provided, snapshot) => (
-                    <div
-                      className="daily-tasks-col daily-tasks-item"
-                      ref={provided.innerRef}
-                    >
-                      {dailyTimeSlot.length ? (
-                        dailyTimeSlot.map((data, index) => {
-                          return (
-                            <div className="daily-tasks-item-content">
-                              <span className="daily-tasks-item-col">
-                                <p>{data.task_name}</p>
-                              </span>
-                              <span className="daily-tasks-item-col">
-                                <button
-                                  className="daily-tasks-reset-btn"
-                                  onClick={() => {
-                                    resetDailyTask(
-                                      data.id,
-                                      i + daily_time_start
-                                    );
-                                  }}
-                                >
-                                  <FontAwesomeIcon icon={faMinus} />
-                                </button>
-                              </span>
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <div className="daily-tasks-empty-dropzone"></div>
-                      )}
+          {dailyTaskList.length ? (
+            dailyTaskList.map((dailyTimeSlot, i) => {
+              return (
+                <div className="daily-tasks-row" key={i}>
+                  {i === curHour - daily_time_start ? (
+                    <div className="daily-tasks-col daily-tasks-time-display time-active">
+                      {i + daily_time_start > 12
+                        ? i + daily_time_start - 12 + ":00 PM"
+                        : i + daily_time_start + ":00 AM"}
+                    </div>
+                  ) : (
+                    <div className="daily-tasks-col daily-tasks-time-display time-inactive">
+                      {i + daily_time_start > 12
+                        ? i + daily_time_start - 12 + ":00 PM"
+                        : i + daily_time_start + ":00 AM"}
                     </div>
                   )}
-                </Droppable>
-              </div>
-            );
-          })}
+
+                  <Droppable droppableId={`${i + daily_time_start}`}>
+                    {(provided, snapshot) => (
+                      <div
+                        className="daily-tasks-col daily-tasks-item"
+                        ref={provided.innerRef}
+                      >
+                        {dailyTimeSlot.length ? (
+                          dailyTimeSlot.map((data, index) => {
+                            return (
+                              <div className="daily-tasks-item-content">
+                                <span className="daily-tasks-item-col">
+                                  <p>{data.task_name}</p>
+                                </span>
+                                <span className="daily-tasks-item-col">
+                                  <button
+                                    className="daily-tasks-reset-btn"
+                                    onClick={() => {
+                                      resetDailyTask(
+                                        data.id,
+                                        i + daily_time_start
+                                      );
+                                    }}
+                                  >
+                                    <FontAwesomeIcon icon={faMinus} />
+                                  </button>
+                                </span>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <div className="daily-tasks-empty-dropzone"></div>
+                        )}
+                      </div>
+                    )}
+                  </Droppable>
+                </div>
+              );
+            })
+          ) : (
+            <div>Loading daily tasks...</div>
+          )}
         </div>
       </div>
     </div>

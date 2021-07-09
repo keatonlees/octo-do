@@ -42,7 +42,6 @@ function EditTask(props) {
       setTaskNameError("Please enter a name");
       return;
     }
-
     await updateTaskInDB();
     closePopup();
   };

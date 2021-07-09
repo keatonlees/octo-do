@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import Axios from "axios";
 import { withRouter } from "react-router";
 import { AuthContext } from "../firebase/Auth.js";
+import { BASE_API_URL } from "../utils/constants.js";
 
 import "./AccountPage.css";
 
@@ -10,18 +12,20 @@ import octopusSmileRev from "../images/octopus_smiling_reversed.png";
 import octopusWave from "../images/octopus_waving.png";
 import octopusWaveRev from "../images/octopus_waving_reversed.png";
 
-function useLSState(key, initialValue) {
-  const [value, setValue] = useState(() => {
-    const persistentValue = localStorage.getItem(key);
-    return persistentValue !== null ? persistentValue : initialValue;
-  });
-  useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [key, value]);
-  return [value, setValue];
-}
+// function useLSState(key, initialValue) {
+//   const [value, setValue] = useState(() => {
+//     const persistentValue = localStorage.getItem(key);
+//     return persistentValue !== null ? persistentValue : initialValue;
+//   });
+//   useEffect(() => {
+//     localStorage.setItem(key, value);
+//   }, [key, value]);
+//   return [value, setValue];
+// }
 
 const AccountPage = ({ history }) => {
+  const endpoint = BASE_API_URL;
+
   const [nameEdit, setNameEdit] = useState(false);
   const [emailEdit, setEmailEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
@@ -29,9 +33,17 @@ const AccountPage = ({ history }) => {
   const [newEmail, setNewEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [darkMode, setDarkMode] = useLSState("darkMode", false);
+  // const [darkMode, setDarkMode] = useLSState("darkMode", false);
+
+  const [dailyTimeEdit, setDailyTimeEdit] = useState(false);
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
 
   const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    getDailyTimes();
+  }, []);
 
   const clearErrors = () => {
     setEmailError("");
@@ -43,8 +55,25 @@ const AccountPage = ({ history }) => {
     setNameEdit(false);
   };
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
+  const saveDailyTimes = async () => {
+    const { status, data } = await Axios.put(
+      `/updateDailyTimes/${currentUser.uid}/${startTime}/${endTime}`
+    );
+    if (status === 200) setDailyTimeEdit(false);
+    else console.log(data);
+  };
 
+  const getDailyTimes = async () => {
+    const { status, data } = await Axios.get(
+      endpoint + `/dailyTimes/${currentUser.uid}`
+    );
+    if (status === 200) {
+      setStartTime(data[0].start_time);
+      setEndTime(data[0].end_time);
+    } else console.log(data);
+  };
+
+  // const toggleDarkMode = () => setDarkMode(!darkMode);
   const toHomePage = () => history.push("/");
 
   return (
@@ -115,6 +144,44 @@ const AccountPage = ({ history }) => {
             <p>Current theme: </p>
             <button onClick={toggleDarkMode}>Toggle</button>
           </div> */}
+
+          <h1>Daily Times</h1>
+          {dailyTimeEdit ? (
+            <div className="account-update">
+              <input
+                name="start"
+                type="number"
+                defaultValue={startTime}
+                placeholder="Start time"
+                onChange={(event) => {
+                  setStartTime(event.target.value);
+                }}
+              />
+              <input
+                name="end"
+                type="number"
+                defaultValue={endTime}
+                placeholder="End time"
+                onChange={(event) => {
+                  setEndTime(event.target.value);
+                }}
+              />
+              <button onClick={saveDailyTimes}>Save</button>
+            </div>
+          ) : (
+            <div className="account-update">
+              <p> {startTime}:00 AM </p>
+              <p> to </p>
+              <p> {endTime}:00 PM </p>
+              <button
+                onClick={() => {
+                  setDailyTimeEdit(true);
+                }}
+              >
+                Edit
+              </button>
+            </div>
+          )}
         </div>
         <button className="primary-btn account-back-btn" onClick={toHomePage}>
           Back

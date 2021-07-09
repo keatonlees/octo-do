@@ -143,9 +143,15 @@
 }
 .daily-tasks-time-display {
   width: 12%;
+  border-radius: var(--daily-tasks-row-radius);
+}
+.time-inactive {
   color: white;
   background-color: var(--primary-colour);
-  border-radius: var(--daily-tasks-row-radius);
+}
+.time-active {
+  color: white;
+  background-color: var(--text-colour);
 }
 .daily-tasks-item-content,
 .daily-tasks-empty-dropzone {

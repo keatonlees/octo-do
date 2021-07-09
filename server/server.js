@@ -33,6 +33,25 @@ app.post("/addUser/:name/:uid", async (req, res) => {
   }
 });
 
+app.post("/addDefaultTimes/:uid", (req, res) => {
+  const userUID = req.params.uid;
+  const defaultStart = 7;
+  const defaultEnd = 11;
+  const query =
+    "INSERT INTO index_list (start_time, end_time, user_id) VALUES (?, ?, (SELECT id FROM user_list WHERE user_uid = ?))";
+  const values = [defaultStart, defaultEnd, userUID];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /addDefaultTimes");
+      console.log(err);
+      res.send(400).send("Error while trying to add default times for user");
+      return;
+    }
+    res.send("Default times added!");
+  });
+});
+
 // get tasks for specific user
 app.get("/allTasks/:user", async (req, res) => {
   const userUID = req.params.user;
@@ -82,6 +101,22 @@ app.get("/dailyTasksFromTime/:user/:time", (req, res) => {
       console.log(">>> ERROR AT /dailyTasksFromTime");
       console.log(err);
       res.send(400).send("Error while trying to get daily tasks");
+      return;
+    }
+    res.send(result);
+  });
+});
+
+app.get("/dailyTimes/:uid", (req, res) => {
+  const userUID = req.params.uid;
+  const query =
+    "SELECT * FROM index_list WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?)";
+
+  db.query(query, userUID, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /dailyTimes");
+      console.log(err);
+      res.send(400).send("Error while trying to get daily times");
       return;
     }
     res.send(result);
@@ -204,6 +239,25 @@ app.put("/updateTask/:user/:id/:name/:date/:time", async (req, res) => {
       return;
     }
     res.send("Task updated successfully!");
+  });
+});
+
+app.put("/updateDailyTimes/:user/:start/:end", (req, res) => {
+  const userUID = req.params.user;
+  const startTime = req.params.start;
+  const endTime = req.params.end;
+  const query =
+    "UPDATE index_list SET start_time = ?, end_time = ? WHERE user_id = (SELECT id FROM user_list WHERE user_uid = ?)";
+  const values = [startTime, endTime, userUID];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.log(">>> ERROR AT /updateDailyTimes");
+      console.log(err);
+      res.send(400).send("Error while updating daily times");
+      return;
+    }
+    res.send("Daily times updated successfully");
   });
 });
 

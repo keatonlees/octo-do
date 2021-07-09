@@ -7,7 +7,7 @@ import moment from "moment";
 
 import "./TopBar.css";
 
-const TopBar = ({ history }) => {
+const TopBar = ({ history, setCurHour }) => {
   const [time, setTime] = useState(moment().format("h:mm A"));
 
   const { currentUser } = useContext(AuthContext);
@@ -15,6 +15,7 @@ const TopBar = ({ history }) => {
   useEffect(() => {
     let timer = setInterval(() => {
       setTime(moment().format("h:mm A"));
+      setCurHour(moment().format("H"));
     }, 1000);
     return function cleanUp() {
       clearInterval(timer);

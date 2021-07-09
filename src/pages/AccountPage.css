@@ -51,13 +51,18 @@
 }
 
 .account-update input {
-  width: 40%;
   font-size: 20px;
   text-decoration: none;
   color: var(--primary-colour);
   border: none;
   border-bottom: solid 3px var(--secondary-colour);
   transition: 0.3s all;
+}
+.account-update input[type="text"] {
+  width: 40%;
+}
+.account-update input[type="number"] {
+  width: 10%;
 }
 
 .account-update input::placeholder {

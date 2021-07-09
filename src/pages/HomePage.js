@@ -21,9 +21,13 @@ function HomePage() {
 
   const [allTaskList, setAllTaskList] = useState([]);
   const [dailyTaskList, setDailyTaskList] = useState([]);
-  const daily_time_start = 7;
-  const daily_time_end = 23;
+
+  const [startTime, setStartTime] = useState(7);
+  const [endTime, setEndTime] = useState(23);
+
   const onLoad = true; // trick var so full daily list is only gotten once onLoad
+
+  const [curHour, setCurHour] = useState(0);
 
   const { currentUser } = useContext(AuthContext);
 
@@ -31,8 +35,9 @@ function HomePage() {
     getAllTasks();
   }, []);
   useEffect(() => {
+    getDailyTimes();
     getAllDailyTasks();
-  }, [onLoad]);
+  }, [onLoad, endTime]);
 
   const getAllTasks = async () => {
     const { status, data } = await Axios.get(
@@ -44,7 +49,7 @@ function HomePage() {
 
   const getAllDailyTasks = async () => {
     const data_storage = [];
-    for (let i = daily_time_start; i < daily_time_end + 1; i++) {
+    for (let i = startTime; i < endTime + 1; i++) {
       const { status, data } = await Axios.get(
         endpoint + `/dailyTasksFromTime/${currentUser.uid}/${i}`
       );
@@ -54,9 +59,19 @@ function HomePage() {
     setDailyTaskList(data_storage);
   };
 
+  const getDailyTimes = async () => {
+    const { status, data } = await Axios.get(
+      endpoint + `/dailyTimes/${currentUser.uid}`
+    );
+    if (status === 200) {
+      setStartTime(data[0].start_time);
+      setEndTime(data[0].end_time + 12);
+    } else console.log(data);
+  };
+
   const updateDailyTimeSlot = async (time_slot) => {
     const daily_list = dailyTaskList;
-    const index = time_slot - daily_time_start;
+    const index = time_slot - startTime;
     const { status, data } = await Axios.get(
       endpoint + `/dailyTasksFromTime/${currentUser.uid}/${time_slot}`
     );
@@ -86,16 +101,19 @@ function HomePage() {
     <div className="home-page">
       <div className="home-container">
         <div className="home-top">
-          <TopBar />
+          <TopBar setCurHour={setCurHour} />
         </div>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="home-bottom">
             <div className="home-left">
+              {console.log(dailyTaskList)}
+
               <DailyTasks
                 dailyTaskList={dailyTaskList}
                 setDailyTaskList={setDailyTaskList}
-                daily_time_start={daily_time_start}
-                daily_time_end={daily_time_end}
+                curHour={curHour}
+                daily_time_start={startTime}
+                daily_time_end={endTime}
                 updateDailyTimeSlot={updateDailyTimeSlot}
               />
             </div>

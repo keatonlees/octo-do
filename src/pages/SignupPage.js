@@ -13,9 +13,9 @@ import octopusWave from "../images/octopus_waving.png";
 import octopusWaveRev from "../images/octopus_waving_reversed.png";
 
 const SignupPage = ({ history }) => {
-  const endpoint = BASE_API_URL;
 
-  const [firstName, setFirstName] = useState("");
+  const endpoint = BASE_API_URL;  const [firstName, setFirstName] = useState("");
+  
   const [firstNameError, setFirstNameError] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -50,6 +50,7 @@ const SignupPage = ({ history }) => {
         await fire.auth().createUserWithEmailAndPassword(email, password);
         await fire.auth().currentUser.updateProfile({ displayName: firstName });
         await addUserToDB(fire.auth().currentUser.uid);
+        await addDefaultTimes(fire.auth().currentUser.uid);
         history.push("/");
       } catch (error) {
         switch (error.code) {
@@ -73,6 +74,14 @@ const SignupPage = ({ history }) => {
       endpoint + `/addUser/${firstName}/${uid}`
     );
     if (status === 200) console.log("User added!");
+    else console.log(data);
+  };
+
+  const addDefaultTimes = async (uid) => {
+    const { status, data } = await Axios.post(
+      endpoint + `/addDefaultTimes/${uid}`
+    );
+    if (status === 200) console.log("Default times added!");
     else console.log(data);
   };
 

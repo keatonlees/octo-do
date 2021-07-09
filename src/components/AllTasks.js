@@ -36,7 +36,7 @@ function AllTasks({ allTaskList, getAllTasks }) {
     setEditTaskPopup(true);
   };
 
-  return (
+  return ( 
     <div className="all-tasks-container">
       <div className="all-tasks-content">
         <div className="all-tasks-topbar">
@@ -62,41 +62,45 @@ function AllTasks({ allTaskList, getAllTasks }) {
         <Droppable droppableId="all-tasks-display" isDropDisabled={true}>
           {(provided) => (
             <div className="all-tasks-display" ref={provided.innerRef}>
-              {allTaskList.map((data, index) => {
-                return (
-                  <Draggable
-                    key={data.id}
-                    draggableId={data.task_name}
-                    index={index}
-                  >
-                    {(provided, snapshot) => (
-                      <React.Fragment>
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          style={provided.draggableProps.style}
-                          {...provided.dragHandleProps}
-                        >
-                          <AllTaskItem
-                            data={data}
-                            handleOpenEdit={handleOpenEdit}
-                            deleteTask={deleteTask}
-                          />
-                        </div>
-                        {snapshot.isDragging && !snapshot.isDropAnimating && (
-                          <div>
+              {allTaskList.length ? (
+                allTaskList.map((data, index) => {
+                  return (
+                    <Draggable
+                      key={data.id}
+                      draggableId={data.task_name}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <React.Fragment>
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            style={provided.draggableProps.style}
+                            {...provided.dragHandleProps}
+                          >
                             <AllTaskItem
                               data={data}
                               handleOpenEdit={handleOpenEdit}
                               deleteTask={deleteTask}
                             />
                           </div>
-                        )}
-                      </React.Fragment>
-                    )}
-                  </Draggable>
-                );
-              })}
+                          {snapshot.isDragging && !snapshot.isDropAnimating && (
+                            <div>
+                              <AllTaskItem
+                                data={data}
+                                handleOpenEdit={handleOpenEdit}
+                                deleteTask={deleteTask}
+                              />
+                            </div>
+                          )}
+                        </React.Fragment>
+                      )}
+                    </Draggable>
+                  );
+                })
+              ) : (
+                <div>You currently have no tasks!</div>
+              )}
               {provided.placeholder}
             </div>
           )}
