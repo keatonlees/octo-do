@@ -4,7 +4,7 @@ import { withRouter, Redirect } from "react-router";
 import fire from "../firebase/Fire.js";
 import { AuthContext } from "../firebase/Auth.js";
 
-import "./LoginSignupPages.css";
+import "../styles/LoginSignupPages.css";
 
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";

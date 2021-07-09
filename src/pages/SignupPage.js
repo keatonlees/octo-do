@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import fire from "../firebase/Fire.js";
 import { BASE_API_URL } from "../utils/constants.js";
 
-import "./LoginSignupPages.css";
+import "../styles/LoginSignupPages.css";
 
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
@@ -13,9 +13,9 @@ import octopusWave from "../images/octopus_waving.png";
 import octopusWaveRev from "../images/octopus_waving_reversed.png";
 
 const SignupPage = ({ history }) => {
+  const endpoint = BASE_API_URL;
+  const [firstName, setFirstName] = useState("");
 
-  const endpoint = BASE_API_URL;  const [firstName, setFirstName] = useState("");
-  
   const [firstNameError, setFirstNameError] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -34,6 +34,22 @@ const SignupPage = ({ history }) => {
 
   const handleSignUp = useCallback(
     async (event) => {
+      const addUserToDB = async (uid) => {
+        const { status, data } = await Axios.post(
+          endpoint + `/addUser/${firstName}/${uid}`
+        );
+        if (status === 200) console.log("User added!");
+        else console.log(data);
+      };
+
+      const addDefaultTimes = async (uid) => {
+        const { status, data } = await Axios.post(
+          endpoint + `/addDefaultTimes/${uid}`
+        );
+        if (status === 200) console.log("Default times added!");
+        else console.log(data);
+      };
+
       event.preventDefault();
       clearErrors();
 
@@ -66,24 +82,8 @@ const SignupPage = ({ history }) => {
         }
       }
     },
-    [history, firstName, email, password, passwordConfirmation]
+    [history, endpoint, firstName, email, password, passwordConfirmation]
   );
-
-  const addUserToDB = async (uid) => {
-    const { status, data } = await Axios.post(
-      endpoint + `/addUser/${firstName}/${uid}`
-    );
-    if (status === 200) console.log("User added!");
-    else console.log(data);
-  };
-
-  const addDefaultTimes = async (uid) => {
-    const { status, data } = await Axios.post(
-      endpoint + `/addDefaultTimes/${uid}`
-    );
-    if (status === 200) console.log("Default times added!");
-    else console.log(data);
-  };
 
   const toLoginPage = () => history.push("/login");
 

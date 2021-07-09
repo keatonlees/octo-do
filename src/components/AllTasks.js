@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
-import "./AllDailyTasks.css";
+import "../styles/AllDailyTasks.css";
 
 import Popup from "./Popup.js";
 import NewTask from "./NewTask.js";

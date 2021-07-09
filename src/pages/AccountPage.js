@@ -1,79 +1,64 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
-import Axios from "axios";
+import { useState, useContext } from "react";
+// import Axios from "axios";
 import { withRouter } from "react-router";
 import { AuthContext } from "../firebase/Auth.js";
-import { BASE_API_URL } from "../utils/constants.js";
+// import { BASE_API_URL } from "../utils/constants.js";
 
-import "./AccountPage.css";
+import "../styles/AccountPage.css";
 
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
 import octopusWave from "../images/octopus_waving.png";
 import octopusWaveRev from "../images/octopus_waving_reversed.png";
 
-// function useLSState(key, initialValue) {
-//   const [value, setValue] = useState(() => {
-//     const persistentValue = localStorage.getItem(key);
-//     return persistentValue !== null ? persistentValue : initialValue;
-//   });
-//   useEffect(() => {
-//     localStorage.setItem(key, value);
-//   }, [key, value]);
-//   return [value, setValue];
-// }
-
 const AccountPage = ({ history }) => {
-  const endpoint = BASE_API_URL;
+  // const endpoint = BASE_API_URL;
 
   const [nameEdit, setNameEdit] = useState(false);
-  const [emailEdit, setEmailEdit] = useState(false);
-  const [passwordEdit, setPasswordEdit] = useState(false);
   const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  // const [darkMode, setDarkMode] = useLSState("darkMode", false);
+  // const [emailEdit, setEmailEdit] = useState(false);
+  // const [newEmail, setNewEmail] = useState("");
+  // const [emailError, setEmailError] = useState("");
 
-  const [dailyTimeEdit, setDailyTimeEdit] = useState(false);
-  const [startTime, setStartTime] = useState(0);
-  const [endTime, setEndTime] = useState(0);
+  // const [dailyTimeEdit, setDailyTimeEdit] = useState(false);
+  // const [startTime, setStartTime] = useState(0);
+  // const [endTime, setEndTime] = useState(0);
 
   const { currentUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    getDailyTimes();
-  }, []);
+  // useEffect(() => {
+  //   getDailyTimes();
+  // }, []);
 
-  const clearErrors = () => {
-    setEmailError("");
-    setPasswordError("");
-  };
+  // const clearErrors = () => {
+  //   setEmailError("");
+  //   setPasswordError("");
+  // };
 
   const saveName = async () => {
     if (newName) await currentUser.updateProfile({ displayName: newName });
     setNameEdit(false);
   };
 
-  const saveDailyTimes = async () => {
-    const { status, data } = await Axios.put(
-      `/updateDailyTimes/${currentUser.uid}/${startTime}/${endTime}`
-    );
-    if (status === 200) setDailyTimeEdit(false);
-    else console.log(data);
-  };
+  // const saveDailyTimes = async () => {
+  //   const { status, data } = await Axios.put(
+  //     endpoint + `/updateDailyTimes/${currentUser.uid}/${startTime}/${endTime}`
+  //   );
+  //   if (status === 200) setDailyTimeEdit(false);
+  //   else console.log(data);
+  // };
 
-  const getDailyTimes = async () => {
-    const { status, data } = await Axios.get(
-      endpoint + `/dailyTimes/${currentUser.uid}`
-    );
-    if (status === 200) {
-      setStartTime(data[0].start_time);
-      setEndTime(data[0].end_time);
-    } else console.log(data);
-  };
+  // const getDailyTimes = async () => {
+  //   const { status, data } = await Axios.get(
+  //     endpoint + `/dailyTimes/${currentUser.uid}`
+  //   );
+  //   if (status === 200) {
+  //     setStartTime(data[0].start_time);
+  //     setEndTime(data[0].end_time);
+  //   } else console.log(data);
+  // };
 
-  // const toggleDarkMode = () => setDarkMode(!darkMode);
   const toHomePage = () => history.push("/");
 
   return (
@@ -107,45 +92,13 @@ const AccountPage = ({ history }) => {
               </button>
             </div>
           )}
+
           <h1> Email </h1>
-          {emailEdit ? (
-            <div className="account-update">
-              {/* <input
-                                  name="email"
-                                  type="email"
-                                  defaultValue={currentUser.email}
-                                  placeholder="New email"
-                                  onChange={(event) => {
-                                    setNewEmail(event.target.value);
-                                  }}
-                                />
-                                <button onClick={saveEmail}>Save</button>
-                                <p className="signup-error">{emailError}</p> */}{" "}
-            </div>
-          ) : (
-            <div className="account-update">
-              <p> {currentUser.email} </p>
-              {/* <button
-                                  onClick={() => {
-                                    setEmailEdit(true);
-                                  }}
-                                >
-                                  Edit
-                                </button> */}
-            </div>
-          )}
-          {/* <h1>Password</h1>
-                    <div className="account-update">
-                      <button>Change Password</button>
-                    </div> */}
+          <div className="account-update">
+            <p> {currentUser.email} </p>
+          </div>
 
-          {/*<h1>Theme</h1>
-           <div className="account-update">
-            <p>Current theme: </p>
-            <button onClick={toggleDarkMode}>Toggle</button>
-          </div> */}
-
-          <h1>Daily Times</h1>
+          {/* <h1>Daily Times</h1>
           {dailyTimeEdit ? (
             <div className="account-update">
               <input
@@ -153,6 +106,8 @@ const AccountPage = ({ history }) => {
                 type="number"
                 defaultValue={startTime}
                 placeholder="Start time"
+                min="1"
+                max="12"
                 onChange={(event) => {
                   setStartTime(event.target.value);
                 }}
@@ -162,6 +117,8 @@ const AccountPage = ({ history }) => {
                 type="number"
                 defaultValue={endTime}
                 placeholder="End time"
+                min="1"
+                max="12"
                 onChange={(event) => {
                   setEndTime(event.target.value);
                 }}
@@ -181,7 +138,7 @@ const AccountPage = ({ history }) => {
                 Edit
               </button>
             </div>
-          )}
+          )} */}
         </div>
         <button className="primary-btn account-back-btn" onClick={toHomePage}>
           Back
@@ -207,26 +164,3 @@ const AccountPage = ({ history }) => {
 };
 
 export default withRouter(AccountPage);
-
-//   const saveEmail = useCallback(
-//     async (event) => {
-//       event.preventDefault();
-//       clearErrors();
-
-//       try {
-//         await currentUser.updateEmail(newEmail);
-//         setEmailEdit(false);
-//       } catch (error) {
-//         alert(error);
-//         switch (error.code) {
-//           case "auth/invalid-email":
-//           case "auth/email-already-in-use":
-//             setEmailError(error.message);
-//             break;
-//           default:
-//             break;
-//         }
-//       }
-//     },
-//     [newEmail]
-//   );

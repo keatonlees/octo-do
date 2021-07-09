@@ -9,7 +9,7 @@ import TopBar from "../components/TopBar.js";
 import AllTasks from "../components/AllTasks.js";
 import DailyTasks from "../components/DailyTasks.js";
 
-import "./HomePage.css";
+import "../styles/HomePage.css";
 
 import octopusSmile from "../images/octopus_smiling.png";
 import octopusSmileRev from "../images/octopus_smiling_reversed.png";
@@ -22,8 +22,10 @@ function HomePage() {
   const [allTaskList, setAllTaskList] = useState([]);
   const [dailyTaskList, setDailyTaskList] = useState([]);
 
-  const [startTime, setStartTime] = useState(7);
-  const [endTime, setEndTime] = useState(23);
+  const startTime = 7;
+  const endTime = 23;
+  // const [startTime, setStartTime] = useState(7);
+  // const [endTime, setEndTime] = useState(23);
 
   const onLoad = true; // trick var so full daily list is only gotten once onLoad
 
@@ -33,11 +35,24 @@ function HomePage() {
 
   useEffect(() => {
     getAllTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
-    getDailyTimes();
+    const getAllDailyTasks = async () => {
+      const data_storage = [];
+      for (let i = startTime; i < endTime + 1; i++) {
+        const { status, data } = await Axios.get(
+          endpoint + `/dailyTasksFromTime/${currentUser.uid}/${i}`
+        );
+        if (status === 200) data_storage.push(data);
+        else console.log(data);
+      }
+      setDailyTaskList(data_storage);
+    };
+
     getAllDailyTasks();
-  }, [onLoad, endTime]);
+  }, [onLoad, endpoint, currentUser.uid]);
 
   const getAllTasks = async () => {
     const { status, data } = await Axios.get(
@@ -47,27 +62,15 @@ function HomePage() {
     else console.log(data);
   };
 
-  const getAllDailyTasks = async () => {
-    const data_storage = [];
-    for (let i = startTime; i < endTime + 1; i++) {
-      const { status, data } = await Axios.get(
-        endpoint + `/dailyTasksFromTime/${currentUser.uid}/${i}`
-      );
-      if (status === 200) data_storage.push(data);
-      else console.log(data);
-    }
-    setDailyTaskList(data_storage);
-  };
-
-  const getDailyTimes = async () => {
-    const { status, data } = await Axios.get(
-      endpoint + `/dailyTimes/${currentUser.uid}`
-    );
-    if (status === 200) {
-      setStartTime(data[0].start_time);
-      setEndTime(data[0].end_time + 12);
-    } else console.log(data);
-  };
+  // const getDailyTimes = async () => {
+  //   const { status, data } = await Axios.get(
+  //     endpoint + `/dailyTimes/${currentUser.uid}`
+  //   );
+  //   if (status === 200) {
+  //     setStartTime(data[0].start_time);
+  //     setEndTime(data[0].end_time + 12);
+  //   } else console.log(data);
+  // };
 
   const updateDailyTimeSlot = async (time_slot) => {
     const daily_list = dailyTaskList;
@@ -106,8 +109,6 @@ function HomePage() {
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="home-bottom">
             <div className="home-left">
-              {console.log(dailyTaskList)}
-
               <DailyTasks
                 dailyTaskList={dailyTaskList}
                 setDailyTaskList={setDailyTaskList}

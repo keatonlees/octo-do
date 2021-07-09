@@ -16,16 +16,16 @@ function EditTask(props) {
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    getTaskFromID(props.taskID);
-  }, []);
+    const getTaskFromID = async (task_id) => {
+      const { status, data } = await Axios.get(
+        endpoint + `/task/${currentUser.uid}/${task_id}`
+      );
+      if (status === 200) setDefaultValues(data);
+      else console.log(data);
+    };
 
-  const getTaskFromID = async (task_id) => {
-    const { status, data } = await Axios.get(
-      endpoint + `/task/${currentUser.uid}/${task_id}`
-    );
-    if (status === 200) setDefaultValues(data);
-    else console.log(data);
-  };
+    getTaskFromID(props.taskID);
+  }, [endpoint, currentUser.uid, props.taskID]);
 
   const setDefaultValues = (data) => {
     document.getElementById("task-name-input").defaultValue = data[0].task_name;
@@ -64,40 +64,62 @@ function EditTask(props) {
 
       <form className="new-task-form" onSubmit={handleEditTask}>
         <div className="new-task-inputs">
-          <label>Task name</label>
-          <input
-            id="task-name-input"
-            type="text"
-            placeholder="Task name"
-            onChange={(event) => {
-              setNewTaskName(event.target.value);
-            }}
-          />
-          <p className="signup-error">{taskNameError}</p>
+          <div className="new-task-inputs-upper">
+            <div className="new-task-inputs-flex">
+              <label>Task name</label>
+              <input
+                id="task-name-input"
+                type="text"
+                placeholder="Task name"
+                onChange={(event) => {
+                  setNewTaskName(event.target.value);
+                }}
+              />
+              <p className="error">{taskNameError}</p>
+            </div>
+          </div>
 
-          <label>Task due date</label>
-          <input
-            id="task-date-input"
-            type="date"
-            onChange={(event) => {
-              setNewTaskDate(event.target.value);
-            }}
-          />
+          <div className="new-task-inputs-lower">
+            <div className="new-task-inputs-lower-left">
+              <div className="new-task-inputs-flex">
+                <label>Task due date</label>
+                <input
+                  id="task-date-input"
+                  type="date"
+                  onChange={(event) => {
+                    setNewTaskDate(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
 
-          <label>Task due time</label>
-          <input
-            id="task-time-input"
-            type="time"
-            onChange={(event) => {
-              setNewTaskTime(event.target.value);
-            }}
-          />
+            <div className="new-task-inputs-lower-right">
+              <div className="new-task-inputs-flex">
+                <label>Task due time</label>
+                <input
+                  id="task-time-input"
+                  type="time"
+                  onChange={(event) => {
+                    setNewTaskTime(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <button type="submit">Save</button>
-        <button type="button" onClick={closePopup}>
-          Cancel
-        </button>
+        <div className="new-task-btns">
+          <button className="primary-btn new-task-add-btn" type="submit">
+            Save
+          </button>
+          <button
+            className="new-task-cancel-btn"
+            type="button"
+            onClick={closePopup}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

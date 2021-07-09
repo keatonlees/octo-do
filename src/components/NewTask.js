@@ -19,9 +19,10 @@ function NewTask(props) {
     if (!taskName) {
       setTaskNameError("Please enter a name");
       return;
+    } else {
+      await addTaskToDB();
+      closePopup();
     }
-    await addTaskToDB();
-    closePopup();
   };
 
   const addTaskToDB = async () => {
@@ -41,40 +42,62 @@ function NewTask(props) {
 
       <form className="new-task-form" onSubmit={handleNewTask}>
         <div className="new-task-inputs">
-          <label>Task name</label>
-          <input
-            name="task-name"
-            type="text"
-            placeholder="Task name"
-            onChange={(event) => {
-              setTaskName(event.target.value);
-            }}
-          />
-          <p className="signup-error">{taskNameError}</p>
+          <div className="new-task-inputs-upper">
+            <div className="new-task-inputs-flex">
+              <label>Task name</label>
+              <input
+                name="task-name"
+                type="text"
+                placeholder="Task name"
+                onChange={(event) => {
+                  setTaskName(event.target.value);
+                }}
+              />
+              <p className="error">{taskNameError}</p>
+            </div>
+          </div>
 
-          <label>Task due date</label>
-          <input
-            name="task-date"
-            type="date"
-            onChange={(event) => {
-              setTaskDate(event.target.value);
-            }}
-          />
+          <div className="new-task-inputs-lower">
+            <div className="new-task-inputs-lower-left">
+              <div className="new-task-inputs-flex">
+                <label>Task due date</label>
+                <input
+                  name="task-date"
+                  type="date"
+                  onChange={(event) => {
+                    setTaskDate(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
 
-          <label>Task due time</label>
-          <input
-            name="task-time"
-            type="time"
-            onChange={(event) => {
-              setTaskTime(event.target.value);
-            }}
-          />
+            <div className="new-task-inputs-lower-right">
+              <div className="new-task-inputs-flex">
+                <label>Task due time</label>
+                <input
+                  name="task-time"
+                  type="time"
+                  onChange={(event) => {
+                    setTaskTime(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <button type="submit">Add</button>
-        <button type="button" onClick={closePopup}>
-          Cancel
-        </button>
+        <div className="new-task-btns">
+          <button className="primary-btn new-task-add-btn" type="submit">
+            Add
+          </button>
+          <button
+            className="new-task-cancel-btn"
+            type="button"
+            onClick={closePopup}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

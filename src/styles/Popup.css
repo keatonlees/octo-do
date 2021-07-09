@@ -1,0 +1,116 @@
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.popup-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 40vw;
+  background-color: white;
+  border-radius: var(--popup-border-radius);
+}
+
+.new-task-content {
+  width: 100%;
+}
+.new-task-content label {
+  font-size: 16px;
+  font-weight: 700;
+}
+.new-task-content input {
+  font-size: 16px;
+  text-decoration: none;
+  color: var(--primary-colour);
+  border: none;
+  border-bottom: solid 3px var(--secondary-colour);
+  transition: 0.3s all;
+}
+.new-task-content input::placeholder {
+  color: var(--secondary-colour);
+}
+.new-task-content input:focus {
+  outline: none !important;
+  border-bottom: 3px solid var(--primary-colour);
+}
+
+.new-task-inputs-upper,
+.new-task-inputs-lower {
+  width: 100%;
+}
+
+.new-task-inputs-lower {
+  display: table;
+  table-layout: fixed;
+}
+.new-task-inputs-lower-left,
+.new-task-inputs-lower-right {
+  display: table-cell;
+  width: 2%;
+  vertical-align: middle;
+}
+.new-task-inputs-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.new-task-inputs-upper input {
+  width: 95%;
+}
+.new-task-inputs-lower input {
+  width: 90%;
+}
+
+.new-task-inputs-flex label {
+  margin-bottom: 0;
+}
+.new-task-inputs-upper label {
+  margin-bottom: 5px;
+}
+.new-task-inputs-upper {
+  margin-bottom: -15px;
+}
+.new-task-inputs-lower {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.new-task-add-btn,
+.new-task-cancel-btn {
+  font-size: 16px;
+  width: 15%;
+  margin: 5px;
+}
+.new-task-cancel-btn {
+  height: 40px;
+  border: none;
+  border-radius: 100px;
+  color: white;
+  background-color: red;
+  transition: 0.2s all;
+}
+.new-task-cancel-btn:hover {
+  background-color: firebrick;
+}
+.new-task-btns {
+  text-align: center;
+}
+.error {
+  color: red !important;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 16px;
+}

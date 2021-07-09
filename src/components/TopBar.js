@@ -5,7 +5,7 @@ import fire from "../firebase/Fire.js";
 import { AuthContext } from "../firebase/Auth.js";
 import moment from "moment";
 
-import "./TopBar.css";
+import "../styles/TopBar.css";
 
 const TopBar = ({ history, setCurHour }) => {
   const [time, setTime] = useState(moment().format("h:mm A"));
