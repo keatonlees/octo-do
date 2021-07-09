@@ -30,7 +30,7 @@ function NewTask(props) {
     const { status, data } = await Axios.post(
       endpoint + `/addTask/${userUID}/${taskName}/${taskDate}/${taskTime}`
     );
-    if (status === 200) console.log("Task added!");
+    if (status === 200) props.getAllTasks();
     else console.log(data);
   };
 

@@ -36,7 +36,7 @@ function AllTasks({ allTaskList, getAllTasks }) {
     setEditTaskPopup(true);
   };
 
-  return ( 
+  return (
     <div className="all-tasks-container">
       <div className="all-tasks-content">
         <div className="all-tasks-topbar">
@@ -52,11 +52,11 @@ function AllTasks({ allTaskList, getAllTasks }) {
         </div>
 
         <Popup trigger={newTaskPopup}>
-          <NewTask closePopup={setNewTaskPopup} />
+          <NewTask closePopup={setNewTaskPopup} getAllTasks={getAllTasks} />
         </Popup>
 
         <Popup trigger={editTaskPopup}>
-          <EditTask closePopup={setEditTaskPopup} taskID={taskToEdit} />
+          <EditTask closePopup={setEditTaskPopup} taskID={taskToEdit} getAllTasks={getAllTasks} />
         </Popup>
 
         <Droppable droppableId="all-tasks-display" isDropDisabled={true}>

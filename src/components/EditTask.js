@@ -52,7 +52,7 @@ function EditTask(props) {
       endpoint +
         `/updateTask/${userUID}/${taskID}/${newTaskName}/${newTaskDate}/${newTaskTime}`
     );
-    if (status === 200) console.log("Task added!");
+    if (status === 200) props.getAllTasks();
     else console.log(data);
   };
 
