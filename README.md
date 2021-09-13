@@ -25,6 +25,6 @@ The next step I implemented was retrieving and mapping the objects from the data
 
 ## Future fixes, updates and additions
 For the future, there a various bugs that may need attention and new features that may be added:
-1. As mentioned above, the speed at which the data is retreived is not as fast as it could be. However, in order to solve this issue, I would have to upgrade my Heroku database add-on plan as I believe this is the limiting factor.
+1. As mentioned above, the speed at which the data is retreived is not as fast as it could be. However, in order to solve this issue, I would have to upgrade the Heroku database add-on plan as I believe this is the limiting factor.
 2. There should be more customization for the user for different settings. This could include allowing a user to choose what time their day starts and ends at, what their default due date and time is, etc. This would be done through the "My Account" tab in the top right. Currently, there is only an option to change a user's display name.
 3. Possibly sometime in the future, Octo-Do would benefit from having a mobile app that would sync with the desktop web application. As of this moment, the mobile view of the web application is hard to read and use.
