@@ -1,6 +1,6 @@
 # Octo-Do
 
-[Octo-do](https://octo-do.herokuapp.com/) is a fun and flexible web-based to-do list application that allows a user to create, edit and delete tasks as well as offering them the flexibility to move tasks into a daily list. 
+Octo-do is a fun and flexible web-based to-do list application that allows a user to create, edit and delete tasks as well as offering them the flexibility to move tasks into a daily list. 
 
 ## The process
 ### Developed using
